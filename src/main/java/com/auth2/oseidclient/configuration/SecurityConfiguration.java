@@ -34,6 +34,9 @@ public class SecurityConfiguration /* extends WebSecurityConfigurerAdapter */ {
 
 	@Autowired
 	private DataSource dataSource;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Bean
 	public OseidUserDetailsService oseidUserDetailsService() {
@@ -111,14 +114,14 @@ public class SecurityConfiguration /* extends WebSecurityConfigurerAdapter */ {
 		return httpSecurity
 				.getSharedObject(AuthenticationManagerBuilder.class)
 				.userDetailsService(oseidUserDetailsService())
-				.passwordEncoder(passwordEncoder())
+				.passwordEncoder(passwordEncoder)//())
 				.and()
 				.build()
 				;
 
 	}
 
-	@Bean
+/*	@Bean
 	public PasswordEncoder passwordEncoder() {
 		String currentEncoder = "Bcrypt";
 
@@ -127,6 +130,6 @@ public class SecurityConfiguration /* extends WebSecurityConfigurerAdapter */ {
 
 		return encoders.get(currentEncoder);
 
-	}
+	}*/
 
 }
