@@ -21,9 +21,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import static org.mockito.Mockito.when;
 
-import com.auth2.oseidclient.entity.OseidUserDetails;
-import com.auth2.oseidclient.service.user.FindUserByEmailService;
-import com.auth2.oseidclient.service.user.SaveOseidUserDetailsService;
+import com.auth2.oseidclient.user.entity.OseidUserDetails;
+import com.auth2.oseidclient.user.service.FindUserByEmailService;
+import com.auth2.oseidclient.user.service.SaveOseidUserDetailsService;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -101,8 +101,8 @@ public class PostUserRestControllerIT {
 		
 	}
 	
-/*	@Test
-	public void performPostiExistingUserAndGetStatusOk() throws Exception {
+	@Test
+	public void performPostWtihEmptyBodyAndGetStatusBadRequest() throws Exception {
 		
 		OseidUserDetails registeredUser = new OseidUserDetails("sir@sir.com");
 		registeredUser.setPassword("$2a$10$5p5eFzge8lX5kCRtwouZNu9zc/IShygTYvb6agG2CCkbBGoZIFYNK");
@@ -116,14 +116,13 @@ public class PostUserRestControllerIT {
 		mockMvc
 			.perform(post("/user").with(user("user").password("user").roles("ADMIN"))
 					.contentType(MediaType.APPLICATION_JSON)
-			//	.content((byte[]) o)
 					.accept(MediaType.APPLICATION_JSON))
-			.andExpect(status().isNoContent());
+			.andExpect(status().isBadRequest());
 			
-	}*/
+	}
 	
 	@Test
-	public void performPostExistingUserAndGetStatusOk() throws Exception {
+	public void whenPerformPostWithExistingUser_thenItShouldReturnStatusOk() throws Exception {
 		
 		OseidUserDetails registeredUser = new OseidUserDetails("sir@sir.com");
 		registeredUser.setPassword("$2a$10$5p5eFzge8lX5kCRtwouZNu9zc/IShygTYvb6agG2CCkbBGoZIFYNK");

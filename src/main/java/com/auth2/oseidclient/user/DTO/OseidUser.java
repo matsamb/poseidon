@@ -1,4 +1,4 @@
-package com.auth2.oseidclient.DTO;
+package com.auth2.oseidclient.user.DTO;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

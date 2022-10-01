@@ -1,12 +1,12 @@
-package com.auth2.oseidclient.service.user;
+package com.auth2.oseidclient.user.service;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.auth2.oseidclient.entity.OseidUserDetails;
-import com.auth2.oseidclient.repository.OseidUserDetailsRepository;
+import com.auth2.oseidclient.user.entity.OseidUserDetails;
+import com.auth2.oseidclient.user.repository.OseidUserDetailsRepository;
 
 @Service
 public class FindUserByEmailService {

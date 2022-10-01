@@ -1,7 +1,8 @@
-package com.auth2.oseidclient.restcontroller;
+package com.auth2.oseidclient.user.restcontroller;
 
 import java.net.URI;
 import java.util.Objects;
+import java.util.Optional;
 
 import javax.annotation.security.RolesAllowed;
 
@@ -16,10 +17,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.auth2.oseidclient.DTO.OseidUser;
-import com.auth2.oseidclient.entity.OseidUserDetails;
-import com.auth2.oseidclient.service.user.FindUserByEmailService;
-import com.auth2.oseidclient.service.user.SaveOseidUserDetailsService;
+import com.auth2.oseidclient.user.DTO.OseidUser;
+import com.auth2.oseidclient.user.entity.OseidUserDetails;
+import com.auth2.oseidclient.user.service.FindUserByEmailService;
+import com.auth2.oseidclient.user.service.SaveOseidUserDetailsService;
 
 @RestController
 @RolesAllowed("ROLE_ADMIN")
@@ -44,17 +45,20 @@ public class PostUserRestController {
 	}
 	
 	@PostMapping("/user")
-	public ResponseEntity<OseidUser> addUser(@RequestBody OseidUser oseidUser){
+	public ResponseEntity<OseidUser> addUser(@RequestBody Optional<OseidUser> oseidUserOptional){
 		
-		OseidUserDetails newUser = new OseidUserDetails();
 		
-		if(Objects.isNull(oseidUser)) {
+		if(oseidUserOptional.isEmpty()) {
 			
-			LOGGER.info("Request Body is empty");
-			return ResponseEntity.noContent().build();
+			LOGGER.info("Bad request, Request Body is empty");
+			return ResponseEntity.badRequest().build();
 			
 		}else  {
 		
+			OseidUser oseidUser = oseidUserOptional.get();
+			
+			OseidUserDetails newUser = new OseidUserDetails();
+			
 			if (findUserByEmailService.findUserByEmail(oseidUser.getEmail()).getEmail() == "Not_Registered") {
 				
 				newUser.setEmail(oseidUser.getEmail());

@@ -1,4 +1,4 @@
-package com.auth2.oseidclient.restcontroller;
+package com.auth2.oseidclient.user.restcontroller;
 
 import javax.annotation.security.RolesAllowed;
 
@@ -9,10 +9,10 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.auth2.oseidclient.DTO.OseidUser;
-import com.auth2.oseidclient.entity.OseidUserDetails;
-import com.auth2.oseidclient.repository.OseidUserDetailsRepository;
-import com.auth2.oseidclient.service.user.FindUserByEmailService;
+import com.auth2.oseidclient.user.DTO.OseidUser;
+import com.auth2.oseidclient.user.entity.OseidUserDetails;
+import com.auth2.oseidclient.user.repository.OseidUserDetailsRepository;
+import com.auth2.oseidclient.user.service.FindUserByEmailService;
 
 @RestController
 @RolesAllowed("ROLE_ADMIN")

@@ -1,4 +1,4 @@
-package com.auth2.oseidclient.restcontroller;
+package com.auth2.oseidclient.user.restcontroller;
 
 import java.util.Map;
 
@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
-import com.auth2.oseidclient.entity.OseidUserDetails;
-import com.auth2.oseidclient.repository.OseidUserDetailsRepository;
-import com.auth2.oseidclient.service.user.FindUserByEmailService;
-import com.auth2.oseidclient.service.user.SaveOseidUserDetailsService;
+import com.auth2.oseidclient.user.entity.OseidUserDetails;
+import com.auth2.oseidclient.user.repository.OseidUserDetailsRepository;
+import com.auth2.oseidclient.user.service.FindUserByEmailService;
+import com.auth2.oseidclient.user.service.SaveOseidUserDetailsService;
 
 @RestController
 public class Oauth2RestController {

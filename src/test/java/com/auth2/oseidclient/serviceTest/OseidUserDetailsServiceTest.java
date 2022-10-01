@@ -18,9 +18,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
-import com.auth2.oseidclient.entity.OseidUserDetails;
-import com.auth2.oseidclient.repository.OseidUserDetailsRepository;
-import com.auth2.oseidclient.service.user.OseidUserDetailsService;
+import com.auth2.oseidclient.user.entity.OseidUserDetails;
+import com.auth2.oseidclient.user.repository.OseidUserDetailsRepository;
+import com.auth2.oseidclient.user.service.OseidUserDetailsService;
 
 @ExtendWith(MockitoExtension.class)
 public class OseidUserDetailsServiceTest {

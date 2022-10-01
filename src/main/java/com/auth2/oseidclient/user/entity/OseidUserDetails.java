@@ -1,4 +1,4 @@
-package com.auth2.oseidclient.entity;
+package com.auth2.oseidclient.user.entity;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -24,8 +24,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.auth2.oseidclient.entity.OseidUserDetails;
-import com.auth2.oseidclient.service.user.OseidUserDetailsService;
+import com.auth2.oseidclient.user.entity.OseidUserDetails;
+import com.auth2.oseidclient.user.service.OseidUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
