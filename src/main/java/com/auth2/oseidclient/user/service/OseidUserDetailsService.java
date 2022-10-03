@@ -32,7 +32,7 @@ public class OseidUserDetailsService implements UserDetailsService {
 			return currentUser;
 		}
 		
-		return new OseidUserDetails("Not_Registered");							
+		return new OseidUserDetails();							
 	}
 
 }

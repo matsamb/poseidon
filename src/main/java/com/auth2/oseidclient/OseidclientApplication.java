@@ -1,5 +1,7 @@
 package com.auth2.oseidclient;
 
+import java.sql.Timestamp;
+
 import javax.annotation.security.RolesAllowed;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.auth2.oseidclient.bid.entity.Bid;
+import com.auth2.oseidclient.bid.repository.BidRepository;
 import com.auth2.oseidclient.user.entity.OseidUserDetails;
 import com.auth2.oseidclient.user.repository.OseidUserDetailsRepository;
 
@@ -38,6 +42,9 @@ public class OseidclientApplication implements CommandLineRunner {
 	private OseidUserDetailsRepository oseidUserDetailsRepository;
 	
 	@Autowired
+	private BidRepository bidRepository;
+	
+	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
 	@Override
@@ -62,6 +69,13 @@ public class OseidclientApplication implements CommandLineRunner {
 		
 		oseidUserDetailsRepository.save(admin);
 		oseidUserDetailsRepository.save(user);
+		
+		Bid bid = new Bid("busta");
+		Timestamp time = new Timestamp(System.currentTimeMillis());
+		bid.setCreationDate(time);
+		bid.setCommentary("YeYo");
+		
+		bidRepository.save(bid);
 	}
 
 }

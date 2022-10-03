@@ -1,4 +1,4 @@
-package com.auth2.oseidclient.restcontrollerIT;
+package com.auth2.oseidclient.user.restcontrollerIT;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;

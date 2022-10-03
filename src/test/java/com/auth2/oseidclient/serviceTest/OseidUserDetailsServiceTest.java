@@ -1,6 +1,8 @@
 package com.auth2.oseidclient.serviceTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
 
@@ -88,19 +90,19 @@ public class OseidUserDetailsServiceTest {
 	}
 	
 	@Test
-	public void givenNotRegisteredUser_whenLoadUserCalled_thenRegisteredUserShouldBeReturned()   {
+	public void givenNotEnabledUser_whenLoadUserCalled_thenDefaultNotRegisteredUserShouldBeReturned()   {
 		
-		OseidUserDetails registerededUser = new OseidUserDetails("max");
-		registerededUser.setLocked(false);
-		registerededUser.setEnabled(true);
-		registerededUser.setPassword("pass");
-		registerededUser.setRoles("ROLE_USER");
+		OseidUserDetails pendingUser = new OseidUserDetails("max");
+		pendingUser.setLocked(false);
+		pendingUser.setEnabled(false);
+		pendingUser.setPassword("pass");
+		pendingUser.setRoles("USER");
 		
 		UserDetails expectedUser = new UserDetails() {
 			
 			@Override
 			public boolean isEnabled() {
-				return true;
+				return false;
 			}
 		
 			@Override
@@ -134,11 +136,11 @@ public class OseidUserDetailsServiceTest {
 			}
 		};
 		
-		when(mockOseidUserDetailsRepository.findByEmail("max")).thenReturn(Optional.of(registerededUser));
+		when(mockOseidUserDetailsRepository.findByEmail("max")).thenReturn(Optional.of(pendingUser));
 		
 		UserDetails foundUser = oseidUserDetailsService.loadUserByUsername("max");
 		
-		assertThat(foundUser.getUsername()).isEqualTo(expectedUser.getUsername());		
+		assertNull(foundUser.getUsername());		
 
 		
 	}

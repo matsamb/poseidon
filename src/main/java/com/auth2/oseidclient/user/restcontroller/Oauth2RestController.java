@@ -44,7 +44,6 @@ public class Oauth2RestController {
 		this.passwordEncoder = passwordEncoder;
 	}
 	
-	
 	@GetMapping("/")
 	public RedirectView oauth(OAuth2AuthenticationToken authentication) {
 		
