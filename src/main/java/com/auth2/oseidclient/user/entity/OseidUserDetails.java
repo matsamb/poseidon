@@ -45,6 +45,7 @@ public class OseidUserDetails implements UserDetails, OAuth2User, Cloneable {
 	private String email;
 	private String password;
 	private String username;
+	private String fullname;
 	private String name;
 	private Boolean enabled;
 	private Boolean locked;
