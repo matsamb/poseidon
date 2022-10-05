@@ -56,12 +56,12 @@ public class PostUserRestControllerIT {
 	@Test
 	public void performPostNewUserAndGetStatusCreated() throws Exception {
 		
-		OseidUserDetails newUser = new OseidUserDetails("sir@sir.com");
+/*		OseidUserDetails newUser = new OseidUserDetails("sir@sir.com");
 		newUser.setPassword("$2a$10$5p5eFzge8lX5kCRtwouZNu9zc/IShygTYvb6agG2CCkbBGoZIFYNK");
 		newUser.setRoles("ROLE_USER");
 		newUser.setEnabled(true);
 		newUser.setLocked(false);
-		
+*/		
 		OseidUserDetails defaultNotRegistered = new OseidUserDetails("Not_Registered");
 		
 		when(mockFindUserByEmailService.findUserByEmail("sir@sir.com")).thenReturn(defaultNotRegistered);
@@ -70,7 +70,7 @@ public class PostUserRestControllerIT {
 		mockMvc
 			.perform(post("/user").with(user("user").password("user").roles("ADMIN"))
 					.contentType(MediaType.APPLICATION_JSON)
-					.content("{\"email\":\"sir@sir.com\",\"password\":\"sir\",\"role\":\"ROLE_USER\"}")
+					.content("{\"email\":\"sir@sir.com\",\"username\":\"sirsir\",\"fullname\":\"klm\",\"password\":\"sir1M&vb\",\"role\":\"USER\"}")
 					.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isCreated());
 			
@@ -80,20 +80,20 @@ public class PostUserRestControllerIT {
 	public void performPostNewUserAndVerifySaveUserCalledOnce() throws Exception {
 		
 		OseidUserDetails newUser = new OseidUserDetails("sir@sir.com");
-		newUser.setPassword("$2a$10$5p5eFzge8lX5kCRtwouZNu9zc/IShygTYvb6agG2CCkbBGoZIFYNK");
-		newUser.setRoles("ROLE_USER");
+		newUser.setPassword("$2y$10$wZr547wCn796Tdi4/J8nnOKA2d/eIZmkzChhTni4epuITcaP47NwK");
+		newUser.setRoles("USER");
 		newUser.setEnabled(true);
 		newUser.setLocked(false);
 		
 		OseidUserDetails defaultNotRegistered = new OseidUserDetails("Not_Registered");
 		
 		when(mockFindUserByEmailService.findUserByEmail("sir@sir.com")).thenReturn(defaultNotRegistered);
-		when(passwordEncoder.encode("sir")).thenReturn("$2a$10$5p5eFzge8lX5kCRtwouZNu9zc/IShygTYvb6agG2CCkbBGoZIFYNK");
+		when(passwordEncoder.encode("sir1M&vb")).thenReturn("$2y$10$wZr547wCn796Tdi4/J8nnOKA2d/eIZmkzChhTni4epuITcaP47NwK");
 		
 		mockMvc
 			.perform(post("/user").with(user("user").password("user").roles("ADMIN"))
 					.contentType(MediaType.APPLICATION_JSON)
-					.content("{\"email\":\"sir@sir.com\",\"password\":\"sir\",\"role\":\"ROLE_USER\"}")
+					.content("{\"email\":\"sir@sir.com\",\"username\":\"sirsir\",\"fullname\":\"klm\",\"password\":\"sir1M&vb\",\"role\":\"USER\"}")
 					.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isCreated());
 	
@@ -125,20 +125,42 @@ public class PostUserRestControllerIT {
 	public void whenPerformPostWithExistingUser_thenItShouldReturnStatusOk() throws Exception {
 		
 		OseidUserDetails registeredUser = new OseidUserDetails("sir@sir.com");
-		registeredUser.setPassword("$2a$10$5p5eFzge8lX5kCRtwouZNu9zc/IShygTYvb6agG2CCkbBGoZIFYNK");
-		registeredUser.setRoles("ROLE_USER");
+		registeredUser.setPassword("$2y$10$wZr547wCn796Tdi4/J8nnOKA2d/eIZmkzChhTni4epuITcaP47NwK");
+		registeredUser.setRoles("USER");
 		registeredUser.setEnabled(true);
 		registeredUser.setLocked(false);
 				
 		when(mockFindUserByEmailService.findUserByEmail("sir@sir.com")).thenReturn(registeredUser);
-		when(passwordEncoder.encode("sir")).thenReturn("$2a$10$5p5eFzge8lX5kCRtwouZNu9zc/IShygTYvb6agG2CCkbBGoZIFYNK");
+		when(passwordEncoder.encode("sir")).thenReturn("$2y$10$wZr547wCn796Tdi4/J8nnOKA2d/eIZmkzChhTni4epuITcaP47NwK");
 	
 		mockMvc
 			.perform(post("/user").with(user("user").password("user").roles("ADMIN"))
 					.contentType(MediaType.APPLICATION_JSON)
-					.content("{\"email\":\"sir@sir.com\",\"password\":\"sir\",\"role\":\"ROLE_USER\"}")
+					.content("{\"email\":\"sir@sir.com\",\"username\":\"sirsir\",\"fullname\":\"klm\",\"password\":\"sir1M&vb\",\"role\":\"USER\"}")
 					.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk());
 			
 	}
+	
+	@Test
+	public void givenARequestBodyRquiredEmailFieldNull_whenPostUserPerformed_thenItShouldReturnBadRequestStatus() throws Exception {
+		
+		OseidUserDetails registeredUser = new OseidUserDetails("sir@sir.com");
+		registeredUser.setPassword("$2y$10$wZr547wCn796Tdi4/J8nnOKA2d/eIZmkzChhTni4epuITcaP47NwK");
+		registeredUser.setRoles("USER");
+		registeredUser.setEnabled(true);
+		registeredUser.setLocked(false);
+				
+		when(mockFindUserByEmailService.findUserByEmail("sir@sir.com")).thenReturn(registeredUser);
+		when(passwordEncoder.encode("sir")).thenReturn("$2y$10$wZr547wCn796Tdi4/J8nnOKA2d/eIZmkzChhTni4epuITcaP47NwK");
+	
+		mockMvc
+			.perform(post("/user").with(user("user").password("user").roles("ADMIN"))
+					.contentType(MediaType.APPLICATION_JSON)
+					.content("{\"email\":\"\",\"username\":\"sirsir\",\"fullname\":\"klm\",\"password\":\"sir1M&vb\",\"role\":\"USER\"}")
+					.accept(MediaType.APPLICATION_JSON))
+			.andExpect(status().isBadRequest());
+			
+	}
+	
 }

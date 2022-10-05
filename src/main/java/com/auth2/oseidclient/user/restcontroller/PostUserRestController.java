@@ -3,8 +3,12 @@ package com.auth2.oseidclient.user.restcontroller;
 import java.net.URI;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.annotation.security.RolesAllowed;
+import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
+import javax.validation.Validation;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,9 +25,10 @@ import com.auth2.oseidclient.user.DTO.OseidUser;
 import com.auth2.oseidclient.user.entity.OseidUserDetails;
 import com.auth2.oseidclient.user.service.FindUserByEmailService;
 import com.auth2.oseidclient.user.service.SaveOseidUserDetailsService;
+import javax.validation.Validator;
 
 @RestController
-@RolesAllowed("ROLE_ADMIN")
+@RolesAllowed("ADMIN")
 public class PostUserRestController {
 
 	public static final Logger LOGGER = LogManager.getLogger("PostUserRestController");
@@ -45,7 +50,7 @@ public class PostUserRestController {
 	}
 	
 	@PostMapping("/user")
-	public ResponseEntity<OseidUser> addUser(@RequestBody Optional<OseidUser> oseidUserOptional){
+	public ResponseEntity<OseidUser> addUser(@RequestBody Optional<@Valid OseidUser> oseidUserOptional){
 		
 		
 		if(oseidUserOptional.isEmpty()) {
@@ -56,6 +61,18 @@ public class PostUserRestController {
 		}else  {
 		
 			OseidUser oseidUser = oseidUserOptional.get();
+			
+			Validator validator = Validation.buildDefaultValidatorFactory().getValidator();	
+			Set<ConstraintViolation<OseidUser>> violations = validator.validate(oseidUser);
+			LOGGER.info("VALIDATION"+validator.validate(oseidUser));
+			LOGGER.info("VIOLATION "+violations.size());
+			
+			if(violations.size()>0) {
+				
+				LOGGER.info("Bad request, constraint violations: "+violations);
+				return ResponseEntity.badRequest().build();
+
+			}else {
 			
 			OseidUserDetails newUser = new OseidUserDetails();
 			
@@ -82,7 +99,7 @@ public class PostUserRestController {
 				LOGGER.info("User: "+oseidUser.getEmail()+", all ready registered");
 				return ResponseEntity.ok(oseidUser);
 			}		
-		
+		}
 		}
 		
 		

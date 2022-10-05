@@ -62,6 +62,44 @@ public class Bid implements Cloneable {
 		this.account = account;
 	}
 
+	public void setBidListDate(Timestamp ts) {
+		this.bidListDate = (Timestamp) ts.clone();
+	}
+
+	public Timestamp getBidListDate() {
+		if (bidListDate != null) {
+			return (Timestamp) bidListDate.clone();
+		} else {
+			return null;
+		}
+
+	}
+
+	public void setCreationDate(Timestamp ts) {
+		this.creationDate = (Timestamp) ts.clone();
+	}
+
+	public Timestamp getCreationDate() {
+		if (creationDate != null) {
+			return (Timestamp) creationDate.clone();
+		} else {
+			return null;
+		}
+	}
+
+	public void setRevisionDate(Timestamp ts) {
+		this.revisionDate = (Timestamp) ts.clone();
+	}
+
+	public Timestamp getRevisionDate() {
+		if (revisionDate != null) {
+			return (Timestamp) revisionDate.clone();
+		} else {
+			return null;
+
+		}
+	}
+
 	public Object clone() {
 
 		Bid result = null;

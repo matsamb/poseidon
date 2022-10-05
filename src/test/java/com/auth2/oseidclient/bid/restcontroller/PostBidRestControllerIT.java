@@ -49,8 +49,8 @@ public class PostBidRestControllerIT {
 		
 	}
 	
-/*	@Test
-	public void testExisting() throws Exception {
+	@Test
+	public void givenARequestBodyMissingMandatoryBidQuantityField_whenPostBidCalled_thenItShouldReturnBadRequest() throws Exception {
 	
 		Bid bid = new Bid();
 		bid.setAccount("busta");
@@ -68,20 +68,15 @@ public class PostBidRestControllerIT {
 					.password("ted")
 					.roles("USER"))
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("{\"account\":\"busta\",\"type\":\"cypher\",\"bidQuantity\":45}")
+				.content("{\"account\":\"busta\",\"type\":\"cypher\",\"bidQuantity\":}")//45
 				.accept(MediaType.APPLICATION_JSON))
-			.andExpect(status().isOk())
+			.andExpect(status().isBadRequest())
 			;
 		
-	}*/
+	}
 	
 	@Test
-	public void testNotExisting() throws Exception {
-	
-/*		Bid bid = new Bid();
-		bid.setAccount("busta");
-		bid.setType("cypher");
-		bid.setBidQuantity(45d);*/
+	public void givenANewBid_whenPostBidCalled_thenItSchouldReturnIsCreatedStatus() throws Exception {
 		
 		Bid bid = new Bid();
 		bid.setAccount("Not_Registered");

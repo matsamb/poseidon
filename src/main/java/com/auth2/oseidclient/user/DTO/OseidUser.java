@@ -1,6 +1,9 @@
 package com.auth2.oseidclient.user.DTO;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 import lombok.Data;
@@ -10,14 +13,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OseidUser implements Cloneable{
 
+	@NotBlank @Email
 	private String email;
+	@NotBlank
 	private String username;
+	@NotBlank
 	private String fullname;
-	
-	//patter password 5 à 9 caractères alphaNumeric + chacun des symboles"[A-Z0-9a-z$&+,:;=?@#|'<>.^*()%!]{5,9}"
-	@Min(8)
-	@Pattern( regexp = "")
+	//pattern password >8 caractères alphaNumeric + chacun des symboles"[A-Z0-9a-z$&+,:;=?@#|'<>.^*()%!]{5,9}"
+	@Pattern( regexp = "(?=.*[A-Z])(?=.*[@$!%*#?&])(?=.*[0-9])[A-Za-z0-9@$!%*#?&]{8,}")
 	private String password;
+	@NotBlank
 	private String role;
 	
 	public Object clone() {

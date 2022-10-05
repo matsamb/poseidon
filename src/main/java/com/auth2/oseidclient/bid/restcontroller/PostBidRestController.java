@@ -2,8 +2,13 @@ package com.auth2.oseidclient.bid.restcontroller;
 
 import java.net.URI;
 import java.util.Optional;
+import java.util.Set;
 
 import javax.annotation.security.RolesAllowed;
+import javax.validation.ConstraintViolation;
+import javax.validation.Valid;
+import javax.validation.Validation;
+import javax.validation.Validator;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -39,7 +44,7 @@ public class PostBidRestController {
 	}
 	
 	@PostMapping("/bid")
-	public ResponseEntity<BidDTO> addBid(@RequestBody Optional<BidDTO> bidDtoOptional){
+	public ResponseEntity<BidDTO> addBid(@RequestBody Optional<@Valid BidDTO> bidDtoOptional){
 		
 		if(bidDtoOptional.isEmpty()) {
 			LOGGER.info("Bad request, request body is empty");
@@ -47,6 +52,19 @@ public class PostBidRestController {
 		}else {
 			BidDTO bidDto = bidDtoOptional.get();
 			LOGGER.info("First bid account: "+findBidByAccountService.findBidByAccount(bidDto.getAccount()).get(0).getAccount());
+	
+			Validator validator = Validation.buildDefaultValidatorFactory().getValidator();	
+			Set<ConstraintViolation<BidDTO>> violations = validator.validate(bidDto);
+			LOGGER.info("VALIDATION"+validator.validate(bidDto));
+			LOGGER.info("VIOLATION "+violations.size());
+
+			if(violations.size()>0) {
+				
+				LOGGER.info("Bad request, constraint violations: "+violations);
+				return ResponseEntity.badRequest().build();
+
+			}else {
+			
 			
 	//		if(findBidByAccountService.findBidByAccount(bidDto.getAccount()).get(0).getAccount() == "Not_Registered") {
 				Bid newBid = new Bid();
@@ -67,7 +85,7 @@ public class PostBidRestController {
 		//		return ResponseEntity.ok(bidDto);
 			//}
 		}
-		
+	}
 	}
 	
 }
