@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.auth2.oseidclient.user.DTO.OseidUser;
+import com.auth2.oseidclient.DTO.OseidUser;
 import com.auth2.oseidclient.user.service.DeleteUserByEmailService;
 import com.auth2.oseidclient.user.service.FindUserByEmailService;
 

@@ -7,7 +7,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
-import com.auth2.oseidclient.user.entity.OseidUserDetails;
+
+import com.auth2.oseidclient.entity.OseidUserDetails;
 
 //@ExtendWith(MockitoExtension.class)
 public class OseidUserDetailsTest {

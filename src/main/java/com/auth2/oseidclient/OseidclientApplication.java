@@ -12,10 +12,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.auth2.oseidclient.bid.entity.Bid;
-import com.auth2.oseidclient.bid.repository.BidRepository;
-import com.auth2.oseidclient.user.entity.OseidUserDetails;
-import com.auth2.oseidclient.user.repository.OseidUserDetailsRepository;
+import com.auth2.oseidclient.entity.Bid;
+import com.auth2.oseidclient.entity.OseidUserDetails;
+import com.auth2.oseidclient.repository.BidRepository;
+import com.auth2.oseidclient.repository.OseidUserDetailsRepository;
 
 @SpringBootApplication
 @RestController

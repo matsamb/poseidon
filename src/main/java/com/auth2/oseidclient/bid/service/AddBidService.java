@@ -5,8 +5,8 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.auth2.oseidclient.bid.entity.Bid;
-import com.auth2.oseidclient.bid.repository.BidRepository;
+import com.auth2.oseidclient.entity.Bid;
+import com.auth2.oseidclient.repository.BidRepository;
 
 @Service
 public class AddBidService {

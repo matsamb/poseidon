@@ -22,8 +22,8 @@ import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.auth2.oseidclient.bid.entity.Bid;
 import com.auth2.oseidclient.bid.service.FindBidByAccountService;
+import com.auth2.oseidclient.entity.Bid;
 
 @SpringBootTest
 @AutoConfigureMockMvc

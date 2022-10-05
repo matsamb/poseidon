@@ -9,9 +9,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.auth2.oseidclient.bid.entity.Bid;
-import com.auth2.oseidclient.bid.repository.BidRepository;
 import com.auth2.oseidclient.bid.service.AddBidService;
+import com.auth2.oseidclient.entity.Bid;
+import com.auth2.oseidclient.repository.BidRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class AddBidServiceTest {

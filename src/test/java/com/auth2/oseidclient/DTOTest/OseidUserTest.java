@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
-import com.auth2.oseidclient.user.DTO.OseidUser;
+import com.auth2.oseidclient.DTO.OseidUser;
 
 public class OseidUserTest {
 

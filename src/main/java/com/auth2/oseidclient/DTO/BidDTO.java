@@ -1,4 +1,4 @@
-package com.auth2.oseidclient.user.DTO;
+package com.auth2.oseidclient.DTO;
 
 import javax.validation.constraints.NotNull;
 

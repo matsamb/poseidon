@@ -6,7 +6,7 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithSecurityContextFactory;
 
-import com.auth2.oseidclient.user.entity.OseidUserDetails;
+import com.auth2.oseidclient.entity.OseidUserDetails;
 
 public class WithMockOseidclientUserSecurityContextFactory implements
 	WithSecurityContextFactory<WithMockOseidclientUser>{

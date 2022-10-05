@@ -10,6 +10,6 @@ public class OseidUserNotFoundException extends RuntimeException {
 	OseidUserNotFoundException(){}
 	
 	public OseidUserNotFoundException(String message) {
-		 super(message);
+		super(message);
 	}
 }

@@ -1,4 +1,4 @@
-package com.auth2.oseidclient.bid.entity;
+package com.auth2.oseidclient.entity;
 
 import java.sql.Timestamp;
 

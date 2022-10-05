@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.auth2.oseidclient.user.DTO.OseidUser;
-import com.auth2.oseidclient.user.entity.OseidUserDetails;
+import com.auth2.oseidclient.DTO.OseidUser;
+import com.auth2.oseidclient.entity.OseidUserDetails;
 import com.auth2.oseidclient.user.service.FindUserByEmailService;
 import com.auth2.oseidclient.user.service.SaveOseidUserDetailsService;
 import javax.validation.Validator;

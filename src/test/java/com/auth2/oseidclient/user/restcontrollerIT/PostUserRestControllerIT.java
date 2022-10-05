@@ -21,7 +21,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import static org.mockito.Mockito.when;
 
-import com.auth2.oseidclient.user.entity.OseidUserDetails;
+import com.auth2.oseidclient.entity.OseidUserDetails;
 import com.auth2.oseidclient.user.service.FindUserByEmailService;
 import com.auth2.oseidclient.user.service.SaveOseidUserDetailsService;
 

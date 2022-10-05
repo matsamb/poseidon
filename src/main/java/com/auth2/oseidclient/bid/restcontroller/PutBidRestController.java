@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.auth2.oseidclient.bid.entity.Bid;
+import com.auth2.oseidclient.DTO.BidDTO;
 import com.auth2.oseidclient.bid.service.AddBidService;
 import com.auth2.oseidclient.bid.service.FindBidByAccountService;
 import com.auth2.oseidclient.bid.service.FindBidByIdService;
-import com.auth2.oseidclient.user.DTO.BidDTO;
+import com.auth2.oseidclient.entity.Bid;
 
 @RestController
 @RolesAllowed({"ADMIN","USER"})

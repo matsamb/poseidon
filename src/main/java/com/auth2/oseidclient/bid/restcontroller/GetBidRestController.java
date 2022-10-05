@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.auth2.oseidclient.bid.entity.Bid;
 import com.auth2.oseidclient.bid.service.FindBidByAccountService;
+import com.auth2.oseidclient.entity.Bid;
 
 @RestController
 @RolesAllowed({"USER","ADMIN"})

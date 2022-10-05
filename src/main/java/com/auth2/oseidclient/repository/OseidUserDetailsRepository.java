@@ -1,10 +1,10 @@
-package com.auth2.oseidclient.user.repository;
+package com.auth2.oseidclient.repository;
 
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.auth2.oseidclient.user.entity.OseidUserDetails;
+import com.auth2.oseidclient.entity.OseidUserDetails;
 
 
 public interface OseidUserDetailsRepository extends JpaRepository<OseidUserDetails, String>{

@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.auth2.oseidclient.DTO.BidDTO;
 import com.auth2.oseidclient.bid.service.DeleteBidService;
 import com.auth2.oseidclient.bid.service.FindBidByIdService;
-import com.auth2.oseidclient.user.DTO.BidDTO;
 
 @RestController
 @RolesAllowed({"ADMIN","USER"})

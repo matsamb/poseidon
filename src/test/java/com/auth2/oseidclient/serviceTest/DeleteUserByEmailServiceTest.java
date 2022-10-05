@@ -9,7 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.auth2.oseidclient.user.repository.OseidUserDetailsRepository;
+import com.auth2.oseidclient.repository.OseidUserDetailsRepository;
 import com.auth2.oseidclient.user.service.DeleteUserByEmailService;
 
 @ExtendWith(MockitoExtension.class)

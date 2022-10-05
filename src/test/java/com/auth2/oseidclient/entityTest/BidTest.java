@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 
 import org.junit.jupiter.api.Test;
 
-import com.auth2.oseidclient.bid.entity.Bid;
+import com.auth2.oseidclient.entity.Bid;
 
 public class BidTest {
 
