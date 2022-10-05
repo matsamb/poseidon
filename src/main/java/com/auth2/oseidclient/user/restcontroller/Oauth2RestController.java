@@ -86,7 +86,7 @@ public class Oauth2RestController {
 		return new RedirectView("/home");
 	}
 	
-	@GetMapping("/oauth2")
+/*	@GetMapping("/oauth2")
 	public OAuth2User getOauth(OAuth2AuthenticationToken auth) {
 		OAuth2User user = new OseidUserDetails();
 		user = auth.getPrincipal();
@@ -94,6 +94,6 @@ public class Oauth2RestController {
 		LOGGER.info("TOKEN: "+auth);
 		
 		return user;
-	}
+	}*/
 	
 }
