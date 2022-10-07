@@ -2,7 +2,10 @@ package com.auth2.oseidclient.entity;
 
 import java.sql.Timestamp;
 
+import javax.annotation.Generated;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import lombok.Data;
@@ -14,6 +17,7 @@ import lombok.NoArgsConstructor;
 public class Trade implements Cloneable{
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	Integer tradeId;
 	String account;
 	String type;

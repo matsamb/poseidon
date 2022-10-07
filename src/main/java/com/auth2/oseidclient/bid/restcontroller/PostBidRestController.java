@@ -73,7 +73,7 @@ public class PostBidRestController {
 				newBid.setType(bidDto.getType());
 				
 				URI location = ServletUriComponentsBuilder
-						.fromCurrentRequest().path("/Bid")
+						.fromCurrentRequest().path("/bid")
 						.buildAndExpand("?account="+newBid.getAccount()).toUri();
 				
 				LOGGER.info("Bid: "+newBid.getAccount()+", URI created and added to database");
