@@ -19,44 +19,44 @@ public class Bid implements Cloneable {
 	@Id
 	@Column(length = 10)
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer bidListId;
+	private Integer bidListId;
 	@Column(length = 10)
-	String account;
+	private String account;
 	@Column(length = 10)
-	String type;
-	Double bidQuantity;
-	Double askQuantity;
+	private String type;
+	private Double bidQuantity;
+	private Double askQuantity;
 	@Column(length = 10)
-	Double bid;
+	private Double bid;
 	@Column(length = 10)
-	Double ask;
+	private Double ask;
 	@Column(length = 10)
-	String benchmark;
-	Timestamp bidListDate;
+	private String benchmark;
+	private Timestamp bidListDate;
 	@Column(length = 10)
-	String commentary;
+	private String commentary;
 	@Column(length = 10)
-	String security;
+	private String security;
 	@Column(length = 10)
-	String status;
+	private String status;
 	@Column(length = 10)
-	String trader;
+	private String trader;
 	@Column(length = 10)
-	String book;
+	private String book;
 	@Column(length = 10)
-	String creationName;
-	Timestamp creationDate;
+	private String creationName;
+	private Timestamp creationDate;
 	@Column(length = 10)
-	String revisionName;
-	Timestamp revisionDate;
+	private String revisionName;
+	private Timestamp revisionDate;
 	@Column(length = 10)
-	String dealName;
+	private String dealName;
 	@Column(length = 10)
-	String dealType;
+	private String dealType;
 	@Column(length = 10)
-	String sourceListId;
+	private String sourceListId;
 	@Column(length = 10)
-	String side;
+	private String side;
 
 	public Bid(String account) {
 		this.account = account;

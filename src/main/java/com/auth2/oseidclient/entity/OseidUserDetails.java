@@ -28,8 +28,11 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 
+import lombok.AccessLevel;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import net.bytebuddy.asm.Advice.This;
 
 @Entity
@@ -50,7 +53,8 @@ public class OseidUserDetails implements UserDetails, OAuth2User, Cloneable {
 	private Boolean enabled;
 	private Boolean locked;
 	private String roles;
-
+	@Getter(value = AccessLevel.NONE)
+	@Setter(value = AccessLevel.NONE)
 	private HashMap<String, Object> attributes;
 
 	public OseidUserDetails(String email) {
@@ -99,6 +103,15 @@ public class OseidUserDetails implements UserDetails, OAuth2User, Cloneable {
 		return this.enabled;
 	}
 
+	public void setAttributes(Map<String, Object> att) {
+		if (att != null) {
+			this.attributes = new HashMap<>();
+			this.attributes.put("email", att.get("email"));
+			this.attributes.put("name", att.get("name"));
+			this.attributes.put("username", att.get("username"));
+		}
+	}
+	
 	@Override
 	public Map<String, Object> getAttributes() {
 
@@ -114,9 +127,10 @@ public class OseidUserDetails implements UserDetails, OAuth2User, Cloneable {
 			copy.put("username", this.getUsername());
 		} else {
 
-			for (String s : this.attributes.keySet()) {
-				copy.put(s, this.attributes.get(s));
+			for (Map.Entry<String, Object> s : this.attributes.entrySet()) {
+				copy.put(s.getKey(), s.getValue());
 			}
+
 		}
 
 		return copy;
@@ -127,11 +141,11 @@ public class OseidUserDetails implements UserDetails, OAuth2User, Cloneable {
 		return this.name;
 	}
 
-	public int HashCode() {
+	public int hashCode() {
 		return Objects.hash(email, name, username);
 	}
 
-	public boolean Equals(Object object) {
+	public boolean equals(Object object) {
 		if (this == object)
 			return true;
 		if (object == null)

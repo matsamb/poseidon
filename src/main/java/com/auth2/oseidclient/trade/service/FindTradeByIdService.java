@@ -2,6 +2,7 @@ package com.auth2.oseidclient.trade.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -30,7 +31,7 @@ public class FindTradeByIdService {
 		if(!tradeRepository.findAll().isEmpty() ) 
 		 {
 			for(Trade t : tradeRepository.findAll()){
-				if(t.getTradeId() == tradeId) {
+				if(Objects.equals(t.getTradeId(), tradeId)) {
 					LOGGER.info("Found trade with Id: "+tradeId);
 					trade = t;
 					count++;

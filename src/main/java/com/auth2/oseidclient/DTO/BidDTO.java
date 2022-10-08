@@ -9,13 +9,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class BidDTO implements Cloneable{
 
-	Integer bidListId;
+	private Integer bidListId;
 	@NotNull
-	String account;
+	private String account;
 	@NotNull
-	String type;
+	private String type;
 	@NotNull
-	Double bidQuantity;
+	private Double bidQuantity;
 	
 	public Object clone() {
 		BidDTO copy = null;

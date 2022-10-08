@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TradeDTO implements Cloneable{
 
-	Integer tradeId;
+	private Integer tradeId;
 	@NotNull
-	String account;
+	private String account;
 	@NotNull
-	String type;
+	private String type;
 	
 	public Object clone() {
 		TradeDTO copy = null;
