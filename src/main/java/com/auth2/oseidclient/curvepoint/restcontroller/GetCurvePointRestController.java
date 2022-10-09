@@ -33,7 +33,7 @@ public class GetCurvePointRestController {
 	public CurvePointDTO getCurvePoint(@RequestParam Integer id) {
 		
 		CurvePoint curve = findCurvePointByIdService.findCurvePointById(id);
-		LOGGER.info("cuvepoint");
+		LOGGER.info("curvepoint");
 		if(Objects.equals(curve.getId(), id)) {
 			LOGGER.info("Found curvepoint with id: "+curve.getId());
 			CurvePointDTO curveDto = new CurvePointDTO();
