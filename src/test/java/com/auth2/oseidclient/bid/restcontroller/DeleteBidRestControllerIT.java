@@ -6,6 +6,9 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import javax.persistence.EntityManager;
+
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +47,7 @@ public class DeleteBidRestControllerIT {
 					;
 		
 	}
-	
+
 	@Test
 	public void givenARegisteredBidId_whenDeleteBidCalled_thenItShouldReturnStatusOk() throws Exception{
 		

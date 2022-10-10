@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
+import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -21,73 +22,76 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.auth2.oseidclient.trade.service.SaveTradeService;
+import com.auth2.oseidclient.oseidrule.service.SaveOseidRuleService;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class PostTradeRestControllerIT {
+public class PostOseidRuleRestControllerIT {
 
 	@Autowired
 	private MockMvc mockMvc;
 	
 	@MockBean
-	private SaveTradeService saveTradeService;
+	private SaveOseidRuleService saveOseidRuleService;
 	
 	@BeforeEach
 	public void setUp(WebApplicationContext webApplicationContext) {
 		
 		mockMvc = MockMvcBuilders
-				.webAppContextSetup(webApplicationContext)
-				.defaultRequest(post("/trade"))
-				.apply(springSecurity())
-				.build()
-				;
+					.webAppContextSetup(webApplicationContext)
+					.defaultRequest(post("/rule"))
+					.apply(springSecurity())
+					.build()
+					;
 		
 	}
 	
+
 	@Test
-	public void givenAnEmptyRequestBody_whenPostTradeCalled_thenItShouldReturnBadRestStatus() throws Exception{
+	public void givenANewRule_whenPostRuleIsCalled_thenStatusCreatedShouldBeReturned() throws Exception{
+		
 		
 		mockMvc
-			.perform(post("/trade")
-				.with(user("taste")
-					.password("date")
+			.perform(post("/rule")
+				.with(user("mate")
+					.password("taste")
 					.roles("ADMIN"))
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("")
-				.accept(MediaType.APPLICATION_JSON))
-			.andExpect(status().isBadRequest())
-			;
-	}
-	
-	@Test
-	public void givenANewTrade_whenPostTradeCalled_thenStatusIsCreatedShouldBeReturned() throws Exception{
-		
-		mockMvc
-			.perform(post("/trade")
-				.with(user("taste")
-					.password("date")
-					.roles("ADMIN"))
-				.contentType(MediaType.APPLICATION_JSON)
-				.content("{\"tradeId\":1,\"account\":\"busta\",\"type\":\"cypher\"}")
+				.content("{\"id\":\"\",\"name\":\"mate\",\"description\":\"yeyo\"}")
 				.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isCreated())
 			;
+		
 	}
 	
 	@Test
-	public void givenANullRequiredFieldAccoountInRequestBody_whenPostTradeCalled_thenStatusBadRequestShouldBeReturned() throws Exception{
+	public void givenANewRuleMissingNameConstraint_whenPostRuleIsCalled_thenStatusCreatedShouldBeReturned() throws Exception{
+		
 		
 		mockMvc
-			.perform(post("/trade")
-				.with(user("taste")
-					.password("date")
+			.perform(post("/rule")
+				.with(user("mate")
+					.password("taste")
 					.roles("ADMIN"))
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("{\"tradeId\":1,\"type\":\"cypher\"}")
+				.content("{\"id\":\"\",\"name\":\"\",\"description\":\"yeyo\"}")
 				.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isBadRequest())
 			;
+		
 	}
 	
+	@Test
+	public void givenAnEmptyRequestBody_whenPostRuleIsCalled_thenStatusBadRequestShouldBeReturned() throws Exception{
+		
+		
+		mockMvc
+			.perform(post("/rule")
+				.with(user("mate")
+					.password("taste")
+					.roles("ADMIN")))
+			.andExpect(status().isBadRequest())
+			;
+		
+	}
 }

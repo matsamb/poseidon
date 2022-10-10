@@ -13,6 +13,7 @@ import com.auth2.oseidclient.entity.Bid;
 import com.auth2.oseidclient.repository.BidRepository;
 
 @Service
+@Transactional
 public class FindBidByIdService {
 
 	public static final Logger LOGGER = LogManager.getLogger("PutBidRestController");

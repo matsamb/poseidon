@@ -6,12 +6,13 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.auth2.oseidclient.entity.OseidUserDetails;
 import com.auth2.oseidclient.repository.OseidUserDetailsRepository;
 
 
-
+@Transactional
 public class OseidUserDetailsService implements UserDetailsService {
 
 	@Autowired

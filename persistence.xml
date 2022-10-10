@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.0"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+    http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+	<persistence-unit name="Oseid1" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>com.auth2.oseidclient.entity.OseidRule</class>
+		<class>com.auth2.oseidclient.entity.CurvePoint</class>
+		<class>com.auth2.oseidclient.entity.OseidRating</class>
+		<properties>
+			<property name="javax.persistence.jdbc.url"
+				value="${jdbc.url}" />
+			<property name="javax.persistence.jdbc.driver"
+				value="${jdbc.driverClassName}" />
+			<property name="javax.persistence.jdbc.user" value="${jdbc.username}" />
+			<property name="javax.persistence.jdbc.password" value="${jdbc.password}" />
+		</properties>
+	</persistence-unit>
+	
+	<persistence-unit name="Oseid2" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>com.auth2.oseidclient.entity.OseidUserDetails</class>
+		<class>com.auth2.oseidclient.entity.Bid</class>
+		<class>com.auth2.oseidclient.entity.Trade</class>
+		<properties>
+			<property name="javax.persistence.jdbc.url"
+				value="${jdbc.url}" />
+			<property name="javax.persistence.jdbc.driver"
+				value="${jdbc.driverClassName}" />
+			<property name="javax.persistence.jdbc.user" value="${jdbc.username}" />
+			<property name="javax.persistence.jdbc.password" value="${jdbc.password}" />
+		</properties>
+
+	</persistence-unit>
+
+</persistence>
