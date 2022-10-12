@@ -5,12 +5,6 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import javax.persistence.EntityManager;
-import javax.persistence.Persistence;
-
-import org.hibernate.jpa.HibernatePersistenceProvider;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +21,7 @@ import com.auth2.oseidclient.oseidrule.service.SaveOseidRuleService;
 @SpringBootTest
 @AutoConfigureMockMvc
 public class PostOseidRuleRestControllerIT {
-/*
+
 	@Autowired
 	private MockMvc mockMvc;
 	
@@ -93,5 +87,5 @@ public class PostOseidRuleRestControllerIT {
 			.andExpect(status().isBadRequest())
 			;
 		
-	}*/
+	}
 }

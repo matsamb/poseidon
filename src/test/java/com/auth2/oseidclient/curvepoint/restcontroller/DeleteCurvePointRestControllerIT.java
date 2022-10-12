@@ -49,7 +49,7 @@ public class DeleteCurvePointRestControllerIT {
 	}
 	
 	@Test
-	public void givenRegisteredCurvePoint1_whenDeleteCalled_thenItShouldReturnStatusIsOk() throws Exception{
+	public void test80/*givenRegisteredCurvePoint1_whenDeleteCalled_thenItShouldReturnStatusIsOk*/() throws Exception{
 		
 		CurvePoint curveToDelete = new CurvePoint();
 		curveToDelete.setId(1);
@@ -68,7 +68,7 @@ public class DeleteCurvePointRestControllerIT {
 	}
 	
 	@Test
-	public void givenNotRegisteredCurvePoint1_whenDeleteCalled_thenItShouldReturnStatusNotFound() throws Exception{
+	public void test90/*givenNotRegisteredCurvePoint1_whenDeleteCalled_thenItShouldReturnStatusNotFound*/() throws Exception{
 		
 		CurvePoint curveToDelete = new CurvePoint();
 		curveToDelete.setId(-1);

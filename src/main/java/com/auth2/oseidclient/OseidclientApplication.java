@@ -50,7 +50,7 @@ public class OseidclientApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		OseidUserDetails admin = new OseidUserDetails("admin@oseid.com");
-		
+		admin.setUsername("admin@oseid.com");
 		String adminpass = passwordEncoder.encode("admin");
 		System.out.println(adminpass);
 		admin.setPassword(adminpass);
@@ -59,6 +59,7 @@ public class OseidclientApplication implements CommandLineRunner {
 		admin.setRoles("ROLE_ADMIN");
 		 
 		OseidUserDetails user = new OseidUserDetails("user@oseid.com");
+		user.setUsername("user@oseid.com");
 		String userpass = passwordEncoder.encode("user");
 		System.out.println(userpass);
 		user.setPassword(userpass);
