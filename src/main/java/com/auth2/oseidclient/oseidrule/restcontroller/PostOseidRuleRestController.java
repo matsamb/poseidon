@@ -57,17 +57,17 @@ public class PostOseidRuleRestController {
 				
 				OseidRule ruleToAdd = new OseidRule();
 				
-				ruleToAdd.setId(ruleDto.getId());
+//				ruleToAdd.setId(ruleDto.getId());
 				ruleToAdd.setName(ruleDto.getName());
 				ruleToAdd.setDescription(ruleDto.getDescription());
 				
 				saveOseidRuleService.saveOseidRule(ruleToAdd);
 				
-				URI location = ServletUriComponentsBuilder
+/*				URI location = ServletUriComponentsBuilder
 						.fromCurrentRequest().path("/rule")
-						.buildAndExpand("?id="+ruleToAdd.getId()).toUri();
+						.buildAndExpand("?Id="+ruleToAdd.getId()).toUri();*/
 				
-				return ResponseEntity.created(location).body(ruleDto);
+				return ResponseEntity.ok(ruleToAdd);//ResponseEntity.created(location).body(ruleDto);
 				
 			}
 			

@@ -4,28 +4,29 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.auth2.oseidclient.entity.OseidRule;
 import com.auth2.oseidclient.repository.OseidRuleRepository;
 
 @Service
-@Transactional
-public class SaveOseidRuleService {
+public class DeleteOseidRuleService {
 
-	private static final Logger LOGGER = LogManager.getLogger("SaveOseidRuleService");
+	private static final Logger LOGGER = LogManager.getLogger("DeleteOseidRuleService");
 
 	@Autowired
 	private OseidRuleRepository oseidRuleRepository;
 	
-	SaveOseidRuleService(OseidRuleRepository oseidRuleRepository
+	DeleteOseidRuleService(OseidRuleRepository oseidRuleRepository
 			){
 		this.oseidRuleRepository = oseidRuleRepository;
 	}
 
-	public void saveOseidRule(OseidRule ruleToAdd) {
-		LOGGER.info("loading rule into database: "+ruleToAdd);
-		oseidRuleRepository.save(ruleToAdd);
+	public void deleteRule(OseidRule rule) {
+		LOGGER.info("Deleting rule "+rule.getId());
+		oseidRuleRepository.delete(rule);
+		
 	}
+	
+	
 	
 }
