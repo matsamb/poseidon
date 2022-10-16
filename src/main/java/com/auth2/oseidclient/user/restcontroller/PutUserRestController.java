@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.auth2.oseidclient.DTO.OseidUser;
 import com.auth2.oseidclient.entity.OseidUserDetails;
-import com.auth2.oseidclient.user.service.FindUserByEmailService;
+import com.auth2.oseidclient.user.service.FindUserByUsernameService;
 import com.auth2.oseidclient.user.service.SaveOseidUserDetailsService;
 
 @RestController
@@ -26,7 +26,7 @@ public class PutUserRestController {
 	public static final Logger LOGGER = LogManager.getLogger("PutUserRestController");
 
 	@Autowired
-	private FindUserByEmailService findUserByEmailService;
+	private FindUserByUsernameService findUserByUsernameService;
 
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -34,11 +34,11 @@ public class PutUserRestController {
 	@Autowired
 	private SaveOseidUserDetailsService saveOseidUserDetailsService;
 
-	PutUserRestController(FindUserByEmailService findUserByEmailService) {
-		this.findUserByEmailService = findUserByEmailService;
+	PutUserRestController(FindUserByUsernameService findUserByUsernameService) {
+		this.findUserByUsernameService = findUserByUsernameService;
 	}
 
-	@PutMapping("/user") // ?email=<email>
+	@PutMapping("/user") // ?username=<username>
 	public ResponseEntity<OseidUser> updateUser(@RequestBody Optional<OseidUser> oseidUserOptional) {
 
 		if (oseidUserOptional.isEmpty()) {
@@ -48,10 +48,10 @@ public class PutUserRestController {
 		} else {
 
 			OseidUser oseidUser = oseidUserOptional.get();
-			OseidUserDetails registeredUser = findUserByEmailService.findUserByEmail(oseidUser.getEmail());
-			LOGGER.info("User: " + registeredUser.getEmail() + ", found");
+			OseidUserDetails registeredUser = findUserByUsernameService.findUserByUsername(oseidUser.getUsername());
+			LOGGER.info("User: " + registeredUser.getUsername() + ", found");
 
-			if (registeredUser.getEmail() == "Not_Registered") {
+			if (registeredUser.getUsername() == "Not_Registered") {
 
 				LOGGER.info("User not registered");
 				return ResponseEntity.notFound().build();
@@ -71,7 +71,7 @@ public class PutUserRestController {
 					LOGGER.info("Parameters altered and saved");
 					saveOseidUserDetailsService.saveUserDetails(registeredUser);
 				}
-				LOGGER.info("User: " + oseidUser.getEmail() + ", updated");
+				LOGGER.info("User: " + oseidUser.getUsername() + ", updated");
 				return ResponseEntity.ok(oseidUser);
 			}
 		}

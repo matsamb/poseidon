@@ -21,11 +21,11 @@ public class OseidUserDetailsService implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-		OseidUserDetails loadedOseidUserDetails = oseidUserDetailsRepository.findByEmail(email)
+		OseidUserDetails loadedOseidUserDetails = oseidUserDetailsRepository.findByUsername(email)
 							.orElseThrow(() -> new UsernameNotFoundException(email+" not found"));
 		
 		if(loadedOseidUserDetails.getEnabled()==true) {
-			UserDetails currentUser = User.withUsername(loadedOseidUserDetails.getEmail())
+			UserDetails currentUser = User.withUsername(loadedOseidUserDetails.getUsername())
 				.password(loadedOseidUserDetails.getPassword())
 				.authorities(new SimpleGrantedAuthority(loadedOseidUserDetails.getRoles()))
 				.build();

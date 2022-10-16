@@ -22,9 +22,10 @@ public class AddBidService {
 		this.bidRepository = bidRepository;
 	}
 
-	public void saveBid(Bid newBid) {
-		LOGGER.info("loading bid: "+newBid+", into database");
-		bidRepository.save(newBid);
+	public Integer saveBid(Bid newBid) {
+		LOGGER.info("loading bid: "+bidRepository.saveAndFlush(newBid).getBidListId()+", into database");
+		Integer returnedBidId = bidRepository.saveAndFlush(newBid).getBidListId();
+		return returnedBidId;
 		
 	}
 	

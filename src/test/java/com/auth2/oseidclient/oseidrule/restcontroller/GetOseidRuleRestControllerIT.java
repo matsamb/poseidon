@@ -17,7 +17,7 @@ import org.springframework.test.web.servlet.MockMvcBuilderSupport;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.auth2.oseidclient.entity.OseidRule;
+import com.auth2.oseidclient.entity.OseidLeru;
 import com.auth2.oseidclient.oseidrule.service.FindOseidRuleByIdService;
 
 @SpringBootTest
@@ -45,7 +45,7 @@ public class GetOseidRuleRestControllerIT {
 	@Test
 	public void givenARegisteredRule_whenGetOseidRule_thenItShouldReturnStatusIsOk() throws Exception{
 		
-		OseidRule tex = new OseidRule();
+		OseidLeru tex = new OseidLeru();
 		tex.setId(1);
 		
 		when(findOseidRuleByIdService.findOseidRuleById(1)).thenReturn(tex);
@@ -63,7 +63,7 @@ public class GetOseidRuleRestControllerIT {
 	@Test
 	public void givenANotRegisteredRule_whenGetOseidRule_thenItShouldReturnStatusIsNotFound() throws Exception{
 		
-		OseidRule notRegistered = new OseidRule();
+		OseidLeru notRegistered = new OseidLeru();
 		notRegistered.setId(-1);
 		
 		when(findOseidRuleByIdService.findOseidRuleById(1)).thenReturn(notRegistered);

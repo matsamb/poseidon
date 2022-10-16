@@ -24,9 +24,10 @@ public class SaveCurvePointService {
 		this.curvePointRepository = curvePointRepository;
 	}
 	
-	public void saveCurvePoint(CurvePoint newCurvePoint) {
-		LOGGER.info("loading curvepoint: "+newCurvePoint);
-		curvePointRepository.save(newCurvePoint);
+	public Integer saveCurvePoint(CurvePoint newCurvePoint) {
+		LOGGER.info("saved curvepoint id: "+curvePointRepository.saveAndFlush(newCurvePoint).getId());
+		Integer returnedId = curvePointRepository.saveAndFlush(newCurvePoint).getId();
+		return returnedId;
 	}
 
 }

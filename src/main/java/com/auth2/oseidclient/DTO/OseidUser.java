@@ -13,7 +13,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OseidUser implements Cloneable{
 
-	@NotBlank @Email
+	private Integer id;
+	//@Email
 	private String email;
 	@NotBlank
 	private String username;

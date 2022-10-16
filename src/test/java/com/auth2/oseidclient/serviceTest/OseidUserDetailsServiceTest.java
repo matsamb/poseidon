@@ -80,7 +80,7 @@ public class OseidUserDetailsServiceTest {
 			}
 		};
 		
-		when(mockOseidUserDetailsRepository.findByEmail("max")).thenReturn(Optional.of(registerededUser));
+		when(mockOseidUserDetailsRepository.findByUsername("max")).thenReturn(Optional.of(registerededUser));
 		
 		UserDetails foundUser = oseidUserDetailsService.loadUserByUsername("max");
 		
@@ -136,7 +136,7 @@ public class OseidUserDetailsServiceTest {
 			}
 		};
 		
-		when(mockOseidUserDetailsRepository.findByEmail("max")).thenReturn(Optional.of(pendingUser));
+		when(mockOseidUserDetailsRepository.findByUsername("max")).thenReturn(Optional.of(pendingUser));
 		
 		UserDetails foundUser = oseidUserDetailsService.loadUserByUsername("max");
 		
@@ -148,7 +148,7 @@ public class OseidUserDetailsServiceTest {
 	@Test
 	public void givenNotRegisteredUser_whenLoadUserCalled_thenUserNameNotFoundExceptionShouldBeThrown()   {
 		
-		when(mockOseidUserDetailsRepository.findByEmail("lam")).thenReturn(Optional.empty());
+		when(mockOseidUserDetailsRepository.findByUsername("lam")).thenReturn(Optional.empty());
 		
 		UsernameNotFoundException e = assertThrows(UsernameNotFoundException.class 
 				,() -> {

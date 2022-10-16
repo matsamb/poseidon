@@ -39,16 +39,16 @@ public class PostTradeRestController {
 	}
 	
 	@PostMapping("/trade")
-	public ResponseEntity<TradeDTO> addTrade(@RequestBody Optional<@Valid TradeDTO> tradeDtoOptional){
+	public ResponseEntity<Trade> addTrade(@RequestBody Optional<@Valid Trade> tradeDtoOptional){
 		
 		if(tradeDtoOptional.isEmpty()) {
 			LOGGER.info("Bad request, RequestBody is empty");
 			return ResponseEntity.badRequest().build();
 		}else {
-			TradeDTO tradeDto = tradeDtoOptional.get();
+			Trade tradeDto = tradeDtoOptional.get();
 			LOGGER.info("New Trade: "+tradeDto);
 			Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-			Set<ConstraintViolation<TradeDTO>> violations = validator.validate(tradeDto);
+			Set<ConstraintViolation<Trade>> violations = validator.validate(tradeDto);
 			LOGGER.info("VALIDATION"+validator.validate(tradeDto));
 			LOGGER.info("VIOLATION "+violations.size());
 
@@ -63,14 +63,14 @@ public class PostTradeRestController {
 				tradeToAdd.setType(tradeDto.getType());
 				
 				LOGGER.info("passing to saveTrade service");
-				saveTradeService.saveTrade(tradeToAdd);
-				
+				Integer savedId = saveTradeService.saveTrade(tradeToAdd);
+				tradeDto.setTradeId(savedId);
 				URI location = ServletUriComponentsBuilder
 						.fromCurrentRequest().path("/trade")
-						.buildAndExpand("?account="+tradeToAdd.getAccount()).toUri();
+						.buildAndExpand("?account="+savedId).toUri();
 				
 				LOGGER.info("URI created");
-				return ResponseEntity.created(location).build();
+				return ResponseEntity.created(location).body(tradeDto);
 				
 			}
 		

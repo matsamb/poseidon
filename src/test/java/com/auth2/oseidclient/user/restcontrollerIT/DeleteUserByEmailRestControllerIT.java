@@ -19,8 +19,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.auth2.oseidclient.entity.OseidUserDetails;
-import com.auth2.oseidclient.user.service.DeleteUserByEmailService;
-import com.auth2.oseidclient.user.service.FindUserByEmailService;
+import com.auth2.oseidclient.user.service.DeleteUserByUsernameService;
+import com.auth2.oseidclient.user.service.FindUserByUsernameService;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -30,10 +30,10 @@ public class DeleteUserByEmailRestControllerIT {
 	private MockMvc mockMvc;
 	
 	@MockBean
-	private FindUserByEmailService findUserByEmailService;
+	private FindUserByUsernameService findUserByUsernameService;
 	
 	@MockBean
-	private DeleteUserByEmailService deleteUserByEmailService;
+	private DeleteUserByUsernameService deleteUserByUsernameService;
 
 	
 	@BeforeEach
@@ -56,14 +56,14 @@ public class DeleteUserByEmailRestControllerIT {
 		max.setEnabled(true);
 		max.setLocked(false);
 				
-		when(findUserByEmailService.findUserByEmail("sir@sir.com")).thenReturn(max);
+		when(findUserByUsernameService.findUserByUsername("sir@sir.com")).thenReturn(max);
 		
 		mockMvc
 			.perform(delete("/user")
 				.with(user("admin")
 					.password("pass")
 					.roles("ADMIN"))
-				.param("email", "sir@sir.com"))
+				.param("username", "sir@sir.com"))
 			.andExpect(status().isOk())
 			;
 		
@@ -78,18 +78,18 @@ public class DeleteUserByEmailRestControllerIT {
 		max.setEnabled(true);
 		max.setLocked(false);
 				
-		when(findUserByEmailService.findUserByEmail("sir@sir.com")).thenReturn(max);
+		when(findUserByUsernameService.findUserByUsername("sir@sir.com")).thenReturn(max);
 		
 		mockMvc
 			.perform(delete("/user")
 				.with(user("admin")
 					.password("pass")
 					.roles("ADMIN"))
-				.param("email", "sir@sir.com"))
+				.param("username", "sir@sir.com"))
 			.andExpect(status().isOk())
 			;
 		
-		verify(deleteUserByEmailService, times(1)).deleteUserByEmail("sir@sir.com");
+		verify(deleteUserByUsernameService, times(1)).deleteUserByUsername("sir@sir.com");
 		
 	}
 	
@@ -98,14 +98,14 @@ public class DeleteUserByEmailRestControllerIT {
 		
 		OseidUserDetails defaultNotRegistered = new OseidUserDetails("Not_Registered");
 		
-		when(findUserByEmailService.findUserByEmail("sir@sir.com")).thenReturn(defaultNotRegistered);		
+		when(findUserByUsernameService.findUserByUsername("sir@sir.com")).thenReturn(defaultNotRegistered);		
 		
 		mockMvc
 			.perform(delete("/user")
 				.with(user("max")
 					.password("pass")
 					.roles("ADMIN"))
-				.param("email", "sir@sir.com"))
+				.param("username", "sir@sir.com"))
 			.andExpect(status().isNotFound())
 			;
 	}

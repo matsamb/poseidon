@@ -10,7 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.auth2.oseidclient.repository.OseidUserDetailsRepository;
-import com.auth2.oseidclient.user.service.DeleteUserByEmailService;
+import com.auth2.oseidclient.user.service.DeleteUserByUsernameService;
 
 @ExtendWith(MockitoExtension.class)
 public class DeleteUserByEmailServiceTest {
@@ -19,12 +19,12 @@ public class DeleteUserByEmailServiceTest {
 	private OseidUserDetailsRepository oseidUserDetailsRepository;
 
 	@InjectMocks
-	private DeleteUserByEmailService deleteUserByEmailService;
+	private DeleteUserByUsernameService deleteUserByUsernameService;
 	
 	@Test
 	public void givenAnEmail_whenDeleteByEmailCalled_thenRepositoryDeleteByIdShouldBeUseOnce() {
 		
-		deleteUserByEmailService.deleteUserByEmail("email");
+		deleteUserByUsernameService.deleteUserByUsername("email");
 		verify(oseidUserDetailsRepository, times(1)).deleteById("email");
 	}
 	

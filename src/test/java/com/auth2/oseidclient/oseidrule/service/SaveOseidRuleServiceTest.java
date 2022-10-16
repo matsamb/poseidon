@@ -1,7 +1,9 @@
 package com.auth2.oseidclient.oseidrule.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -9,7 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.auth2.oseidclient.entity.OseidRule;
+import com.auth2.oseidclient.entity.OseidLeru;
 import com.auth2.oseidclient.repository.OseidRuleRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -24,12 +26,19 @@ public class SaveOseidRuleServiceTest {
 	@Test
 	public void givenARule_whenSaveRuleServiceCalled_thenRuleRepositoryShouldBeUsedOnce() {
 		
-		OseidRule rule = new OseidRule();
-		rule.setId(1);
+		OseidLeru rule = new OseidLeru();
+		rule.setName("massi");
 		
-		saveOseidRuleService.saveOseidRule(rule);
+		OseidLeru rule2 = new OseidLeru();
+		rule2.setId(1);
+		rule2.setName("massi");
 		
-		verify(oseidRuleRepository, times(1)).save(rule);
+		when(oseidRuleRepository.saveAndFlush(rule)).thenReturn(rule2);
+		
+		Integer ruleReturned = saveOseidRuleService.saveOseidRule(rule);
+		
+		assertThat(ruleReturned).isEqualTo(rule2.getId());
+		//verify(oseidRuleRepository, times(1)).save(rule);
 		
 	}
 	

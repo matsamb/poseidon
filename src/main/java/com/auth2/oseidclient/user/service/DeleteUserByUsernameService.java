@@ -10,20 +10,20 @@ import com.auth2.oseidclient.repository.OseidUserDetailsRepository;
 
 @Service
 @Transactional
-public class DeleteUserByEmailService {
+public class DeleteUserByUsernameService {
 
-	public static final Logger LOGGER = LogManager.getLogger("DeleteUserByEmailService");
+	public static final Logger LOGGER = LogManager.getLogger("DeleteUserByUsernameService");
 	
 	@Autowired
 	private OseidUserDetailsRepository oseidUserDetailsRepository;
 	
-	DeleteUserByEmailService(OseidUserDetailsRepository oseidUserDetailsRepository){
+	DeleteUserByUsernameService(OseidUserDetailsRepository oseidUserDetailsRepository){
 		this.oseidUserDetailsRepository = oseidUserDetailsRepository;
 	}
 
-	public void deleteUserByEmail(String email) {
-		LOGGER.info("User: "+email+", deleted");
-		oseidUserDetailsRepository.deleteById(email);
+	public void deleteUserByUsername(String username) {
+		LOGGER.info("User: "+username+", deleted");
+		oseidUserDetailsRepository.deleteById(username);
 		
 	}
 	

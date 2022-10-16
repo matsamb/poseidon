@@ -16,6 +16,7 @@ import com.auth2.oseidclient.entity.Bid;
 import com.auth2.oseidclient.entity.OseidUserDetails;
 import com.auth2.oseidclient.repository.BidRepository;
 import com.auth2.oseidclient.repository.OseidUserDetailsRepository;
+import com.auth2.oseidclient.user.service.UserIdHelper;
 
 @SpringBootApplication
 @RestController
@@ -39,6 +40,9 @@ public class OseidclientApplication implements CommandLineRunner {
 	}
 	
 	@Autowired
+	private UserIdHelper userIdHelper;
+	
+	@Autowired
 	private OseidUserDetailsRepository oseidUserDetailsRepository;
 	
 	@Autowired
@@ -51,6 +55,7 @@ public class OseidclientApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		OseidUserDetails admin = new OseidUserDetails("admin@oseid.com");
 		admin.setUsername("admin@oseid.com");
+		admin.setUserId(userIdHelper.createUserId());
 		String adminpass = passwordEncoder.encode("admin");
 		System.out.println(adminpass);
 		admin.setPassword(adminpass);
@@ -60,6 +65,7 @@ public class OseidclientApplication implements CommandLineRunner {
 		 
 		OseidUserDetails user = new OseidUserDetails("user@oseid.com");
 		user.setUsername("user@oseid.com");
+		user.setUserId(userIdHelper.createUserId());
 		String userpass = passwordEncoder.encode("user");
 		System.out.println(userpass);
 		user.setPassword(userpass);

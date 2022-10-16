@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.auth2.oseidclient.DTO.RuleDTO;
-import com.auth2.oseidclient.entity.OseidRule;
+import com.auth2.oseidclient.entity.OseidLeru;
 import com.auth2.oseidclient.oseidrule.service.FindOseidRuleByIdService;
 import com.auth2.oseidclient.oseidrule.service.SaveOseidRuleService;
 
@@ -40,7 +39,7 @@ public class PutOseidRuleRestController {
 	}
 	
 	@PutMapping("/rule")//?id=<id>
-	public ResponseEntity<RuleDTO> updateRule(@RequestBody Optional<RuleDTO> ruleDtoOptional, @RequestParam Integer id){
+	public ResponseEntity<OseidLeru> updateRule(@RequestBody Optional<OseidLeru> ruleDtoOptional, @RequestParam Integer id){
 
 		LOGGER.always();
 		if(ruleDtoOptional.isEmpty()) {
@@ -54,23 +53,18 @@ public class PutOseidRuleRestController {
 			}else {
 			
 			LOGGER.always();
-			RuleDTO ruleDto = ruleDtoOptional.get();
+			OseidLeru ruleDto = ruleDtoOptional.get();
 			
 			Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-			Set<ConstraintViolation<RuleDTO>> violations = validator.validate(ruleDto);
+			Set<ConstraintViolation<OseidLeru>> violations = validator.validate(ruleDto);
 			
 			if(violations.size() > 0) {
 				LOGGER.info("Bad request, constraint violations: "+violations);
 				return ResponseEntity.badRequest().build();
 			}else {
 				LOGGER.info("updating rule "+id);
-				OseidRule ruleToAlter = new OseidRule();
-				
-				ruleToAlter.setDescription(ruleDto.getDescription());
-				ruleToAlter.setId(ruleDto.getId());
-				ruleToAlter.setName(ruleDto.getName());
 
-				saveOseidRuleService.saveOseidRule(ruleToAlter);
+				saveOseidRuleService.saveOseidRule(ruleDto);
 				
 				return ResponseEntity.ok(ruleDto);
 			}

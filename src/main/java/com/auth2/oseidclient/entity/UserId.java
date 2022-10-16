@@ -1,37 +1,36 @@
 package com.auth2.oseidclient.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
 @Entity
 @Data
 @NoArgsConstructor
-public class OseidRule implements Cloneable {
+@AllArgsConstructor
+public class UserId implements Serializable, Cloneable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	Integer id;
-	@NotBlank
-	String name;
-	String description;
-	String json;
-	String template;
-	String sqlStr;
-	String sqlPart;
-
+	private Integer Id;
+	
 	public Object clone() {
-		OseidRule copy = null;
+		UserId copy = null;
+		
 		try {
-			copy = (OseidRule)super.clone();
+			copy = (UserId) super.clone();
 		}catch(CloneNotSupportedException e) {
 			e.printStackTrace();
 		}
+		
 		return copy;
 	}
 	

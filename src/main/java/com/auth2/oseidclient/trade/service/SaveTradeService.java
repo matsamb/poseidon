@@ -22,9 +22,11 @@ public class SaveTradeService {
 		this.tradeRepository = tradeRepository;
 	}
 
-	public void saveTrade(Trade tradeToAdd) {
+	public Integer saveTrade(Trade tradeToAdd) {
 		LOGGER.info("Loading new trade: "+tradeToAdd.getAccount()+", into database");
-		tradeRepository.save(tradeToAdd);
+		Trade returnedTrade = tradeRepository.saveAndFlush(tradeToAdd);
+		LOGGER.info(returnedTrade);
+		return returnedTrade.getTradeId();
 	}
 	
 	

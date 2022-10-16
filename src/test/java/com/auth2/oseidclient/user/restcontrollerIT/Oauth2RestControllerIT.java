@@ -24,14 +24,12 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.core.user.OAuth2User;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.auth2.oseidclient.entity.OseidUserDetails;
-import com.auth2.oseidclient.repository.OseidUserDetailsRepository;
-import com.auth2.oseidclient.user.service.FindUserByEmailService;
+import com.auth2.oseidclient.user.service.FindUserByUsernameService;
 import com.auth2.oseidclient.user.service.SaveOseidUserDetailsService;
 
 @SpringBootTest
@@ -42,7 +40,7 @@ public class Oauth2RestControllerIT {
 	private MockMvc mockMvc;
 	
 	@MockBean
-	private FindUserByEmailService mockFindUserByEmailService;
+	private FindUserByUsernameService mockFindUserByUsernameService;
 	
 	@MockBean
 	private SaveOseidUserDetailsService mockSaveOseidUserDetailsService;
@@ -94,7 +92,7 @@ public class Oauth2RestControllerIT {
 		user.setEnabled(true);
 		user.setLocked(false);
 		
-		when(mockFindUserByEmailService.findUserByEmail("max")).thenReturn(user);
+		when(mockFindUserByUsernameService.findUserByUsername("max")).thenReturn(user);
 		
 		
 		mockMvc
@@ -137,11 +135,12 @@ public class Oauth2RestControllerIT {
 		user.setLocked(false);
 		
 		OseidUserDetails laxOseid = new OseidUserDetails("max");
+		laxOseid.setEmail("max");
 		laxOseid.setEnabled(true);
 		laxOseid.setLocked(false);
 		laxOseid.setRoles("ROLE_USER");
 		
-		when(mockFindUserByEmailService.findUserByEmail("max")).thenReturn(user);
+		when(mockFindUserByUsernameService.findUserByUsername("max")).thenReturn(user);
 		
 		
 		mockMvc

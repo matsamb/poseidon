@@ -15,7 +15,7 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.auth2.oseidclient.entity.OseidUserDetails;
 import com.auth2.oseidclient.repository.OseidUserDetailsRepository;
-import com.auth2.oseidclient.user.service.FindUserByEmailService;
+import com.auth2.oseidclient.user.service.FindUserByUsernameService;
 import com.auth2.oseidclient.user.service.SaveOseidUserDetailsService;
 
 @RestController
@@ -24,7 +24,7 @@ public class Oauth2RestController {
 	public static final Logger LOGGER = LogManager.getLogger("Oauth2RestController");
 	
 	@Autowired
-	private FindUserByEmailService findUserByEmailService;
+	private FindUserByUsernameService findUserByUsernameService;
 	
 	@Autowired
 	private SaveOseidUserDetailsService saveOseidUserDetailsService;
@@ -35,11 +35,11 @@ public class Oauth2RestController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-	Oauth2RestController(FindUserByEmailService findUserByEmailService
+	Oauth2RestController(FindUserByUsernameService findUserByUsernameService
 			,SaveOseidUserDetailsService saveOseidUserDetailsService
 			,PasswordEncoder passwordEncoder
 			){
-		this.findUserByEmailService = findUserByEmailService;
+		this.findUserByUsernameService = findUserByUsernameService;
 		this.saveOseidUserDetailsService = saveOseidUserDetailsService;
 		this.passwordEncoder = passwordEncoder;
 	}
@@ -53,12 +53,12 @@ public class Oauth2RestController {
 		String email = (String) attributes.get("email");
 		String username = (String) attributes.get("login");
 		LOGGER.info("ATTRIBUTES: "+attributes.toString());
-		if(findUserByEmailService.findUserByEmail(email).getEmail() == "Not_Registered") {
-			LOGGER.info("New Oauth2 User: "+findUserByEmailService.findUserByEmail(email).getEmail());
+		if(findUserByUsernameService.findUserByUsername(email).getUsername() == "Not_Registered") {
+			LOGGER.info("New Oauth2 User: "+findUserByUsernameService.findUserByUsername(email).getEmail());
 			OseidUserDetails newOseidUser = new OseidUserDetails();
 			
 			newOseidUser.setEmail(email);
-			newOseidUser.setUsername(username);
+			newOseidUser.setUsername(email);
 			String OauthUserPass = passwordEncoder.encode(username);
 			newOseidUser.setPassword(OauthUserPass);
 			newOseidUser.setEnabled(true);

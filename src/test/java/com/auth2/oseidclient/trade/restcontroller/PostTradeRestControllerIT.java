@@ -84,7 +84,7 @@ public class PostTradeRestControllerIT {
 					.password("date")
 					.roles("ADMIN"))
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("{\"tradeId\":1,\"type\":\"cypher\"}")
+				.content("{\"tradeId\":1,\"account\": ,\"type\":\"cypher\"}")
 				.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isBadRequest())
 			;

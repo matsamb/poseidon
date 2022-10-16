@@ -1,11 +1,13 @@
 package com.auth2.oseidclient.oseidrule.restcontroller;
 
+import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -16,7 +18,10 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.auth2.oseidclient.entity.OseidLeru;
+import com.auth2.oseidclient.entity.UserId;
 import com.auth2.oseidclient.oseidrule.service.SaveOseidRuleService;
+import com.auth2.oseidclient.user.service.UserIdHelper;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -40,10 +45,18 @@ public class PostOseidRuleRestControllerIT {
 		
 	}
 	
-
+	//@Disabled
 	@Test
 	public void givenANewRule_whenPostRuleIsCalled_thenStatusCreatedShouldBeReturned() throws Exception{
 		
+		OseidLeru leruSaved = new OseidLeru();
+		leruSaved.setName("mate");
+		
+		OseidLeru leruReturned = new OseidLeru();
+		leruReturned.setId(1);
+		leruReturned.setName("mate");
+		
+		when(saveOseidRuleService.saveOseidRule(leruReturned)).thenReturn(leruReturned.getId());
 		
 		mockMvc
 			.perform(post("/rule")
@@ -51,7 +64,7 @@ public class PostOseidRuleRestControllerIT {
 					.password("taste")
 					.roles("ADMIN"))
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("{\"id\":\"\",\"name\":\"mate\",\"description\":\"yeyo\"}")
+				.content("{\"id\":\"1\",\"name\":\"mate\",\"description\":\"zelo\",\"json\":\"melo\",\"template\":\"hello\", \"template\":\"hello\", \"template\":\"hello\"}")
 				.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isCreated())
 			;

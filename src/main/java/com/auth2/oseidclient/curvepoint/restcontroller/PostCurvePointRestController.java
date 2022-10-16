@@ -37,17 +37,17 @@ public class PostCurvePointRestController {
 	}
 	
 	@PostMapping("curvepoint")
-	public ResponseEntity<CurvePointDTO> addCurvePoint(@RequestBody Optional<CurvePointDTO> curvePointDtoOptional){
+	public ResponseEntity<CurvePoint> addCurvePoint(@RequestBody Optional<CurvePoint> curvePointDtoOptional){
 		
 		if(curvePointDtoOptional.isEmpty()) {
 			LOGGER.info("Bad request, empty request body");
 			return ResponseEntity.badRequest().build();		
 		}else {
 			LOGGER.info("processing request");
-			CurvePointDTO curvePointDto = curvePointDtoOptional.get();
+			CurvePoint curvePointDto = curvePointDtoOptional.get();
 			
 			Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-			Set<ConstraintViolation<CurvePointDTO>> violations = validator.validate(curvePointDto);
+			Set<ConstraintViolation<CurvePoint>> violations = validator.validate(curvePointDto);
 			LOGGER.info("VALIDATION"+validator.validate(curvePointDto));
 			LOGGER.info("VIOLATION "+violations.size());
 			
@@ -63,15 +63,16 @@ public class PostCurvePointRestController {
 				newCurvePoint.setValue(curvePointDto.getValue());
 				LOGGER.info("CurvePoint set");
 				
-				
+				Integer savedCurveId = saveCurvePointService.saveCurvePoint(newCurvePoint);
+				newCurvePoint.setId(savedCurveId);
 				URI location = ServletUriComponentsBuilder
 						.fromCurrentRequest().path("/curvepoint")
-						.buildAndExpand("?id="+newCurvePoint.getId())
+						.buildAndExpand("?id="+savedCurveId)
 						.toUri()
 						;
-				saveCurvePointService.saveCurvePoint(newCurvePoint);
 				
-				return ResponseEntity.created(location).build();
+				
+				return ResponseEntity.created(location).body(newCurvePoint);
 			}
 			
 		}

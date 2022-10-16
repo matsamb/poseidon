@@ -13,7 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.auth2.oseidclient.entity.OseidUserDetails;
 import com.auth2.oseidclient.repository.OseidUserDetailsRepository;
-import com.auth2.oseidclient.user.service.FindUserByEmailService;
+import com.auth2.oseidclient.user.service.FindUserByUsernameService;
 
 @ExtendWith(MockitoExtension.class)
 public class FindUserByEmailServiceTest {
@@ -22,17 +22,18 @@ public class FindUserByEmailServiceTest {
 	private OseidUserDetailsRepository mockOseidUserDetailsRepository;
 
 	@InjectMocks
-	private FindUserByEmailService findUserByEmailService;
+	private FindUserByUsernameService findUserByUsernameService;
 	
 	@Test
 	public void givenNotRegisteredUser_whenFindUserCalled_thenDefaultNotRegisteredUserShouldBeReturned() {
 		
 		OseidUserDetails expectedUser = new OseidUserDetails("Not_Registered");
 		expectedUser.setLocked(false);
+		expectedUser.setEmail("Not_Registered");
 		
-		when(mockOseidUserDetailsRepository.findByEmail("max")).thenReturn(Optional.empty());
+		when(mockOseidUserDetailsRepository.findByUsername("max")).thenReturn(Optional.empty());
 		
-		OseidUserDetails foundUser = findUserByEmailService.findUserByEmail("max");
+		OseidUserDetails foundUser = findUserByUsernameService.findUserByUsername("max");
 		
 		assertThat(foundUser).isEqualTo(expectedUser);		
 		
@@ -44,9 +45,9 @@ public class FindUserByEmailServiceTest {
 		OseidUserDetails expectedUser = new OseidUserDetails("max");
 		expectedUser.setLocked(false);
 		
-		when(mockOseidUserDetailsRepository.findByEmail("max")).thenReturn(Optional.of(expectedUser));
+		when(mockOseidUserDetailsRepository.findByUsername("max")).thenReturn(Optional.of(expectedUser));
 		
-		OseidUserDetails foundUser = findUserByEmailService.findUserByEmail("max");
+		OseidUserDetails foundUser = findUserByUsernameService.findUserByUsername("max");
 		
 		assertThat(foundUser).isEqualTo(expectedUser);		
 		

@@ -7,7 +7,6 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.ietf.jgss.Oid;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +21,7 @@ import org.springframework.web.context.WebApplicationContext;
 import static org.mockito.Mockito.when;
 
 import com.auth2.oseidclient.entity.OseidUserDetails;
-import com.auth2.oseidclient.user.service.FindUserByEmailService;
+import com.auth2.oseidclient.user.service.FindUserByUsernameService;
 import com.auth2.oseidclient.user.service.SaveOseidUserDetailsService;
 
 @SpringBootTest
@@ -36,7 +35,7 @@ public class PostUserRestControllerIT {
 	private PasswordEncoder passwordEncoder;
 	
 	@MockBean
-	private FindUserByEmailService mockFindUserByEmailService;
+	private FindUserByUsernameService mockFindUserByUsernameService;
 	
 	@MockBean
 	private SaveOseidUserDetailsService mockSaveOseidUserDetailsService;
@@ -63,14 +62,15 @@ public class PostUserRestControllerIT {
 		newUser.setLocked(false);
 */		
 		OseidUserDetails defaultNotRegistered = new OseidUserDetails("Not_Registered");
+		defaultNotRegistered.setEmail("Not_Registered");
 		
-		when(mockFindUserByEmailService.findUserByEmail("sir@sir.com")).thenReturn(defaultNotRegistered);
+		when(mockFindUserByUsernameService.findUserByUsername("sir@sir.com")).thenReturn(defaultNotRegistered);
 		when(passwordEncoder.encode("sir")).thenReturn("$2a$10$5p5eFzge8lX5kCRtwouZNu9zc/IShygTYvb6agG2CCkbBGoZIFYNK");
 		
 		mockMvc
 			.perform(post("/user").with(user("user").password("user").roles("ADMIN"))
 					.contentType(MediaType.APPLICATION_JSON)
-					.content("{\"email\":\"sir@sir.com\",\"username\":\"sirsir\",\"fullname\":\"klm\",\"password\":\"sir1M&vb\",\"role\":\"USER\"}")
+					.content("{\"email\":\"sir@sir.com\",\"username\":\"sir@sir.com\",\"fullname\":\"klm\",\"password\":\"sir1M&vb\",\"role\":\"USER\"}")
 					.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isCreated());
 			
@@ -80,6 +80,7 @@ public class PostUserRestControllerIT {
 	public void performPostNewUserAndVerifySaveUserCalledOnce() throws Exception {
 		
 		OseidUserDetails newUser = new OseidUserDetails("sir@sir.com");
+		newUser.setEmail("sir@sir.com");
 		newUser.setPassword("$2y$10$wZr547wCn796Tdi4/J8nnOKA2d/eIZmkzChhTni4epuITcaP47NwK");
 		newUser.setRoles("USER");
 		newUser.setEnabled(true);
@@ -87,13 +88,13 @@ public class PostUserRestControllerIT {
 		
 		OseidUserDetails defaultNotRegistered = new OseidUserDetails("Not_Registered");
 		
-		when(mockFindUserByEmailService.findUserByEmail("sir@sir.com")).thenReturn(defaultNotRegistered);
+		when(mockFindUserByUsernameService.findUserByUsername("sir@sir.com")).thenReturn(defaultNotRegistered);
 		when(passwordEncoder.encode("sir1M&vb")).thenReturn("$2y$10$wZr547wCn796Tdi4/J8nnOKA2d/eIZmkzChhTni4epuITcaP47NwK");
 		
 		mockMvc
 			.perform(post("/user").with(user("user").password("user").roles("ADMIN"))
 					.contentType(MediaType.APPLICATION_JSON)
-					.content("{\"email\":\"sir@sir.com\",\"username\":\"sirsir\",\"fullname\":\"klm\",\"password\":\"sir1M&vb\",\"role\":\"USER\"}")
+					.content("{\"email\":\"sir@sir.com\",\"username\":\"sir@sir.com\",\"fullname\":\"klm\",\"password\":\"sir1M&vb\",\"role\":\"USER\"}")
 					.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isCreated());
 	
@@ -110,7 +111,7 @@ public class PostUserRestControllerIT {
 		registeredUser.setEnabled(true);
 		registeredUser.setLocked(false);
 				
-		when(mockFindUserByEmailService.findUserByEmail("sir@sir.com")).thenReturn(registeredUser);
+		when(mockFindUserByUsernameService.findUserByUsername("sir@sir.com")).thenReturn(registeredUser);
 		when(passwordEncoder.encode("sir")).thenReturn("$2a$10$5p5eFzge8lX5kCRtwouZNu9zc/IShygTYvb6agG2CCkbBGoZIFYNK");
 				
 		mockMvc
@@ -130,20 +131,20 @@ public class PostUserRestControllerIT {
 		registeredUser.setEnabled(true);
 		registeredUser.setLocked(false);
 				
-		when(mockFindUserByEmailService.findUserByEmail("sir@sir.com")).thenReturn(registeredUser);
+		when(mockFindUserByUsernameService.findUserByUsername("sir@sir.com")).thenReturn(registeredUser);
 		when(passwordEncoder.encode("sir")).thenReturn("$2y$10$wZr547wCn796Tdi4/J8nnOKA2d/eIZmkzChhTni4epuITcaP47NwK");
 	
 		mockMvc
 			.perform(post("/user").with(user("user").password("user").roles("ADMIN"))
 					.contentType(MediaType.APPLICATION_JSON)
-					.content("{\"email\":\"sir@sir.com\",\"username\":\"sirsir\",\"fullname\":\"klm\",\"password\":\"sir1M&vb\",\"role\":\"USER\"}")
+					.content("{\"email\":\"sir@sir.com\",\"username\":\"sir@sir.com\",\"fullname\":\"klm\",\"password\":\"sir1M&vb\",\"role\":\"USER\"}")
 					.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk());
 			
 	}
 	
 	@Test
-	public void givenARequestBodyRquiredEmailFieldNull_whenPostUserPerformed_thenItShouldReturnBadRequestStatus() throws Exception {
+	public void givenARequestBodyRquiredUsernameFieldNull_whenPostUserPerformed_thenItShouldReturnBadRequestStatus() throws Exception {
 		
 		OseidUserDetails registeredUser = new OseidUserDetails("sir@sir.com");
 		registeredUser.setPassword("$2y$10$wZr547wCn796Tdi4/J8nnOKA2d/eIZmkzChhTni4epuITcaP47NwK");
@@ -151,13 +152,13 @@ public class PostUserRestControllerIT {
 		registeredUser.setEnabled(true);
 		registeredUser.setLocked(false);
 				
-		when(mockFindUserByEmailService.findUserByEmail("sir@sir.com")).thenReturn(registeredUser);
+		when(mockFindUserByUsernameService.findUserByUsername("sir@sir.com")).thenReturn(registeredUser);
 		when(passwordEncoder.encode("sir")).thenReturn("$2y$10$wZr547wCn796Tdi4/J8nnOKA2d/eIZmkzChhTni4epuITcaP47NwK");
 	
 		mockMvc
 			.perform(post("/user").with(user("user").password("user").roles("ADMIN"))
 					.contentType(MediaType.APPLICATION_JSON)
-					.content("{\"email\":\"\",\"username\":\"sirsir\",\"fullname\":\"klm\",\"password\":\"sir1M&vb\",\"role\":\"USER\"}")
+					.content("{\"email\":\"\",\"username\":\"\",\"fullname\":\"klm\",\"password\":\"sir1M&vb\",\"role\":\"USER\"}")
 					.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isBadRequest());
 			

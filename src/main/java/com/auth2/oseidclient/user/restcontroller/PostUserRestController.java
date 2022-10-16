@@ -22,9 +22,12 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.auth2.oseidclient.DTO.OseidUser;
+import com.auth2.oseidclient.DTO.User;
 import com.auth2.oseidclient.entity.OseidUserDetails;
-import com.auth2.oseidclient.user.service.FindUserByEmailService;
+import com.auth2.oseidclient.user.service.FindUserByUsernameService;
 import com.auth2.oseidclient.user.service.SaveOseidUserDetailsService;
+import com.auth2.oseidclient.user.service.UserIdHelper;
+
 import javax.validation.Validator;
 
 @RestController
@@ -34,7 +37,10 @@ public class PostUserRestController {
 	public static final Logger LOGGER = LogManager.getLogger("PostUserRestController");
 	
 	@Autowired
-	private FindUserByEmailService findUserByEmailService;
+	private UserIdHelper userIdHelper;
+	
+	@Autowired
+	private FindUserByUsernameService findUserByUsernameService;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
@@ -42,15 +48,17 @@ public class PostUserRestController {
 	@Autowired
 	private SaveOseidUserDetailsService saveOseidUserDetailsService;
 	
-	PostUserRestController(FindUserByEmailService findUserByEmailService
+	PostUserRestController(UserIdHelper userIdHelper
+			, FindUserByUsernameService findUserByUsernameService
 			,SaveOseidUserDetailsService saveOseidUserDetailsService
 			){
-		this.findUserByEmailService = findUserByEmailService;
+		this.userIdHelper = userIdHelper;
+		this.findUserByUsernameService = findUserByUsernameService;
 		this.saveOseidUserDetailsService = saveOseidUserDetailsService;
 	}
 	
 	@PostMapping("/user")
-	public ResponseEntity<OseidUser> addUser(@RequestBody Optional<@Valid OseidUser> oseidUserOptional){
+	public ResponseEntity<User> addUser(@RequestBody Optional<@Valid OseidUser> oseidUserOptional){
 		
 		
 		if(oseidUserOptional.isEmpty()) {
@@ -75,29 +83,46 @@ public class PostUserRestController {
 			}else {
 			
 			OseidUserDetails newUser = new OseidUserDetails();
+			User user = new User();
 			
-			if (findUserByEmailService.findUserByEmail(oseidUser.getEmail()).getEmail() == "Not_Registered") {
+			if (findUserByUsernameService.findUserByUsername(oseidUser.getUsername()).getUsername() == "Not_Registered") {
 				
-				newUser.setEmail(oseidUser.getEmail());
+				newUser.setUserId(userIdHelper.createUserId());
+				LOGGER.info("New user helper id"+newUser.getUserId().getId());
+				newUser.setUsername(oseidUser.getUsername());
+				newUser.setEmail(oseidUser.getUsername());
+				newUser.setFullname(oseidUser.getFullname());
 				newUser.setPassword(passwordEncoder.encode(oseidUser.getPassword()));
 				newUser.setRoles(oseidUser.getRole());
 				newUser.setEnabled(true);
 				newUser.setLocked(false);
 				
-				LOGGER.info(oseidUser.getEmail()+" loaded into database");
+				LOGGER.info(oseidUser+" loaded into database");
 				saveOseidUserDetailsService.saveUserDetails(newUser);
 				
 				URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/user")
-						.buildAndExpand("?email="+newUser.getEmail()).toUri();
+						.buildAndExpand("?username="+newUser.getUsername()).toUri();
 				
-				LOGGER.debug("Posted User "+newUser.getEmail()+" URI created");
-				LOGGER.info("Posted User "+newUser.getEmail()+" created");
+				LOGGER.debug("Posted User "+newUser.getUsername()+" URI created");
+				LOGGER.info("Posted User "+newUser.getUsername()+" created");
 				
-				return ResponseEntity.created(location).build();
+				user.setId(newUser.getUserId().getId());
+				user.setUsername(newUser.getUsername());
+				user.setFullname(newUser.getFullname());
+				user.setPassword(newUser.getPassword());
+				user.setRole(newUser.getRoles());
+				
+				return ResponseEntity.created(location).body(user);
 			
 			}else {
 				LOGGER.info("User: "+oseidUser.getEmail()+", all ready registered");
-				return ResponseEntity.ok(oseidUser);
+				
+				user.setId(newUser.getUserId().getId());
+				user.setUsername(newUser.getUsername());
+				user.setFullname(newUser.getFullname());
+				user.setPassword(newUser.getPassword());
+				user.setRole(newUser.getRoles());
+				return ResponseEntity.ok(user);
 			}		
 		}
 		}

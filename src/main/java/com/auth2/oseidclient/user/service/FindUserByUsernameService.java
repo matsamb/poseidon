@@ -11,28 +11,29 @@ import com.auth2.oseidclient.repository.OseidUserDetailsRepository;
 
 @Service
 @Transactional
-public class FindUserByEmailService {
+public class FindUserByUsernameService {
 
-	public static final Logger LOGGER = LogManager.getLogger("FindUserByEmailService");
+	public static final Logger LOGGER = LogManager.getLogger("FindUserByUsernameService");
 
 	@Autowired
 	private OseidUserDetailsRepository oseidUserDetailsRepository;
 
-	FindUserByEmailService(OseidUserDetailsRepository oseidUserDetailsRepository) {
+	FindUserByUsernameService(OseidUserDetailsRepository oseidUserDetailsRepository) {
 		this.oseidUserDetailsRepository = oseidUserDetailsRepository;
 	}
 
-	public OseidUserDetails findUserByEmail(String email) {
+	public OseidUserDetails findUserByUsername(String email) {
 
 		OseidUserDetails foundUser = new OseidUserDetails();
 		foundUser.setLocked(false);
-		LOGGER.info(oseidUserDetailsRepository.findByEmail(email).isPresent());
-		if (oseidUserDetailsRepository.findByEmail(email).isPresent()) {
-			foundUser = oseidUserDetailsRepository.findByEmail(email).get();
-			LOGGER.info("User registered: "+foundUser.getEmail());
+		LOGGER.info(oseidUserDetailsRepository.findByUsername(email).isPresent());
+		if (oseidUserDetailsRepository.findByUsername(email).isPresent()) {
+			foundUser = oseidUserDetailsRepository.findByUsername(email).get();
+			LOGGER.info("User registered: "+foundUser.getUsername());
 		}else {
 			LOGGER.info("User not regidtred");
 			foundUser.setEmail("Not_Registered");
+			foundUser.setUsername("Not_Registered");
 		}
 		LOGGER.info(foundUser);
 		return foundUser;

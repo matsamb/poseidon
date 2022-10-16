@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.auth2.oseidclient.entity.OseidRule;
+import com.auth2.oseidclient.entity.OseidLeru;
 import com.auth2.oseidclient.oseidrule.service.FindOseidRuleByIdService;
 
 @RestController
@@ -27,7 +27,7 @@ public class GetOseidRuleRestController {
 	}
 	
 	@GetMapping("/rule")//?id=<id>
-	public ResponseEntity<OseidRule> getOseidRule(@RequestParam Integer id){
+	public ResponseEntity<OseidLeru> getOseidRule(@RequestParam Integer id){
 		LOGGER.always();
 		
 		if(findOseidRuleByIdService.findOseidRuleById(id).getId() == -1) {

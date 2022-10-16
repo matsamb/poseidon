@@ -41,7 +41,7 @@ public class PutCurvePointRestController {
 	}
 
 	@PutMapping("/curvepoint") // ?id=<id>
-	public ResponseEntity<CurvePointDTO> updateCurvePoint(@RequestBody Optional<CurvePointDTO> curvePointOptional,
+	public ResponseEntity<CurvePoint> updateCurvePoint(@RequestBody Optional<CurvePoint> curvePointOptional,
 			@RequestParam Integer id) {
 
 		LOGGER.info("Curvepoint: "+id);
@@ -57,10 +57,10 @@ public class PutCurvePointRestController {
 
 			} else {
 				LOGGER.info("processing update");
-				CurvePointDTO curvePoint = curvePointOptional.get();
+				CurvePoint curvePoint = curvePointOptional.get();
 
 				Validator validator = Validation.buildDefaultValidatorFactory().getValidator();
-				Set<ConstraintViolation<CurvePointDTO>> violations = validator.validate(curvePoint);
+				Set<ConstraintViolation<CurvePoint>> violations = validator.validate(curvePoint);
 
 				if (violations.size() > 0) {
 					LOGGER.info("Bad request, constraint violations: " + violations);

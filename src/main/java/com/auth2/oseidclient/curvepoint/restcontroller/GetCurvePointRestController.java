@@ -30,13 +30,13 @@ public class GetCurvePointRestController {
 	}
 	
 	@GetMapping("/curvepoint")//?id=<id>
-	public CurvePointDTO getCurvePoint(@RequestParam Integer id) {
+	public CurvePoint getCurvePoint(@RequestParam Integer id) {
 		
 		CurvePoint curve = findCurvePointByIdService.findCurvePointById(id);
 		LOGGER.info("curvepoint");
 		if(Objects.equals(curve.getId(), id)) {
 			LOGGER.info("Found curvepoint with id: "+curve.getId());
-			CurvePointDTO curveDto = new CurvePointDTO();
+			CurvePoint curveDto = new CurvePoint();
 			curveDto.setId(curve.getId());
 			curveDto.setCurveId(curve.getCurveId());
 			curveDto.setTerm(curve.getTerm());

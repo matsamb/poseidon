@@ -1,7 +1,9 @@
 package com.auth2.oseidclient.curvepoint.service;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,10 +27,17 @@ public class SaveCurvePointServiceTest {
 	public void test() {
 		
 		CurvePoint curvePoint = new CurvePoint();
-		curvePoint.setCurveId(1);
-		saveCurvePointService.saveCurvePoint(curvePoint);
+		curvePoint.setValue(1.0);
 		
-		verify(curvePointRepository, times(1)).save(curvePoint);
+		CurvePoint curvePointWithId = new CurvePoint();
+		curvePointWithId.setId(1);
+		curvePointWithId.setValue(1.0);
+		
+		when(curvePointRepository.saveAndFlush(curvePoint)).thenReturn(curvePointWithId);
+		
+		Integer returnedId = saveCurvePointService.saveCurvePoint(curvePoint);
+		
+		assertThat(returnedId).isEqualTo(curvePointWithId.getId());
 		
 	}
 	

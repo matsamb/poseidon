@@ -37,7 +37,7 @@ public class DeleteCurvePointRestController {
 	}
 	
 	@DeleteMapping("/curvepoint")//?id=<id>
-	public ResponseEntity<CurvePointDTO> deleteCurvePoint(@RequestParam Integer id){
+	public ResponseEntity<CurvePoint> deleteCurvePoint(@RequestParam Integer id){
 		
 		if(findCurvePointByIdService.findCurvePointById(id).getId() == -1) {
 			LOGGER.info("CurvePoint with id: "+id+", not found");
@@ -46,7 +46,7 @@ public class DeleteCurvePointRestController {
 			LOGGER.info("Found and deleting curvePoint with id: "+id);
 			CurvePoint curvePointToDelete = findCurvePointByIdService.findCurvePointById(id);
 			deleteCurvePointService.deleteCurvePoint(curvePointToDelete);
-			return ResponseEntity.ok(new CurvePointDTO());
+			return ResponseEntity.ok(new CurvePoint());
 		}
 		
 	}

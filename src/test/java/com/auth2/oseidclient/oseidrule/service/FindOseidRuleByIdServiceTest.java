@@ -12,7 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.auth2.oseidclient.entity.OseidRule;
+import com.auth2.oseidclient.entity.OseidLeru;
 import com.auth2.oseidclient.repository.OseidRuleRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -27,14 +27,14 @@ public class FindOseidRuleByIdServiceTest {
 	@Test
 	public void givenARegisteredOseidRule_whenFindById_thenItShouldReturnTheRegisteredRule() {
 		
-		OseidRule expectedRule = new OseidRule();
+		OseidLeru expectedRule = new OseidLeru();
 		expectedRule.setId(1);
-		List<OseidRule> ruleList = new ArrayList<>();
+		List<OseidLeru> ruleList = new ArrayList<>();
 		ruleList.add(expectedRule);
 		
 		when(oseidRuleRepository.findAll()).thenReturn(ruleList);
 		
-		OseidRule foundRule = findOseidRuleByIdService.findOseidRuleById(1);
+		OseidLeru foundRule = findOseidRuleByIdService.findOseidRuleById(1);
 		
 		assertThat(foundRule).isEqualTo(expectedRule);
 	}
@@ -42,13 +42,13 @@ public class FindOseidRuleByIdServiceTest {
 	@Test
 	public void test1() {
 		
-		OseidRule notRegisteredRule = new OseidRule();
+		OseidLeru notRegisteredRule = new OseidLeru();
 		notRegisteredRule.setId(-1);
-		List<OseidRule> ruleList = new ArrayList<>();
+		List<OseidLeru> ruleList = new ArrayList<>();
 		
 		when(oseidRuleRepository.findAll()).thenReturn(ruleList);
 		
-		OseidRule foundRule = findOseidRuleByIdService.findOseidRuleById(1);
+		OseidLeru foundRule = findOseidRuleByIdService.findOseidRuleById(1);
 		
 		assertThat(foundRule).isEqualTo(notRegisteredRule);
 	}

@@ -44,7 +44,7 @@ public class PostBidRestController {
 	}
 	
 	@PostMapping("/bid")
-	public ResponseEntity<BidDTO> addBid(@RequestBody Optional<@Valid BidDTO> bidDtoOptional){
+	public ResponseEntity<Bid> addBid(@RequestBody Optional<@Valid BidDTO> bidDtoOptional){
 		
 		if(bidDtoOptional.isEmpty()) {
 			LOGGER.info("Bad request, request body is empty");
@@ -65,25 +65,20 @@ public class PostBidRestController {
 
 			}else {
 			
-			
-	//		if(findBidByAccountService.findBidByAccount(bidDto.getAccount()).get(0).getAccount() == "Not_Registered") {
 				Bid newBid = new Bid();
 				newBid.setAccount(bidDto.getAccount());
 				newBid.setBidQuantity(bidDto.getBidQuantity());
 				newBid.setType(bidDto.getType());
 				
+				LOGGER.info("Bid: "+newBid.getAccount()+", URI created and added to database");
+				Integer savedBid = addBidService.saveBid(newBid);
+				newBid.setBidListId(savedBid);
 				URI location = ServletUriComponentsBuilder
 						.fromCurrentRequest().path("/bid")
-						.buildAndExpand("?account="+newBid.getAccount()).toUri();
+						.buildAndExpand("?account="+savedBid).toUri();
 				
-				LOGGER.info("Bid: "+newBid.getAccount()+", URI created and added to database");
-				addBidService.saveBid(newBid);
-				return ResponseEntity.created(location).build();
-	//		}else {
-	//			LOGGER.info("bid all ready exists");
-	// TODO: check for multiple bids list
-		//		return ResponseEntity.ok(bidDto);
-			//}
+				return ResponseEntity.created(location).body(newBid);
+
 		}
 	}
 	}

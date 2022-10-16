@@ -10,7 +10,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.auth2.oseidclient.entity.OseidRule;
+import com.auth2.oseidclient.entity.OseidLeru;
 import com.auth2.oseidclient.repository.OseidRuleRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -20,14 +20,14 @@ public class DeleteOseidRuleServiceTest {
 	private OseidRuleRepository oseidRuleRepository;
 	
 	@InjectMocks
-	private DeleteOseidRuleService deleteOseidRuleService;
+	private DeleteOseidRueService deleteOseidRuleService;
 	
 	@Test
 	public void givenAOseidRule_whenDeleteRuleService_thenOseidRuleRepositoryShouldBeUsedOnce() {
 		
-		OseidRule rule = new OseidRule();
+		OseidLeru rule = new OseidLeru();
 		rule.setId(1);
-		deleteOseidRuleService.deleteRule(rule);
+		deleteOseidRuleService.deleteOseidRue(rule);
 		verify(oseidRuleRepository, times(1)).delete(rule);
 		
 	}

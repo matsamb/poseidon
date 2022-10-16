@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.MockMvcBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.auth2.oseidclient.entity.OseidRule;
+import com.auth2.oseidclient.entity.OseidLeru;
 import com.auth2.oseidclient.oseidrule.service.FindOseidRuleByIdService;
 import com.auth2.oseidclient.oseidrule.service.SaveOseidRuleService;
 
@@ -51,7 +51,7 @@ public class PutOseidRuleRestControllerIT {
 	@Test
 	public void givenARegisteredRule_whenPutOseidRule_thenItShouldReturnStatusIsOk() throws Exception{
 		
-		OseidRule max = new OseidRule();
+		OseidLeru max = new OseidLeru();
 		max.setId(1);
 		
 		when(findOseidRuleByIdService.findOseidRuleById(1)).thenReturn(max);
@@ -73,7 +73,7 @@ public class PutOseidRuleRestControllerIT {
 	@Test
 	public void givenAnEmptyRequestBody_whenPutRule_thenItShouldReturnStatusIsBadRequest() throws Exception{
 		
-		OseidRule max = new OseidRule();
+		OseidLeru max = new OseidLeru();
 		max.setId(1);
 		
 		when(findOseidRuleByIdService.findOseidRuleById(1)).thenReturn(max);
@@ -95,7 +95,7 @@ public class PutOseidRuleRestControllerIT {
 	@Test
 	public void givenANotRegisteredOseidRule_whenPutOseidRule_thenItShouldReturnStatusIsNotFound() throws Exception{
 		
-		OseidRule notRegistred = new OseidRule();
+		OseidLeru notRegistred = new OseidLeru();
 		notRegistred.setId(-1);
 		
 		when(findOseidRuleByIdService.findOseidRuleById(1)).thenReturn(notRegistred);

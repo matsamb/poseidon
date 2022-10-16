@@ -7,7 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.auth2.oseidclient.entity.OseidRule;
+import com.auth2.oseidclient.entity.OseidLeru;
 import com.auth2.oseidclient.repository.OseidRuleRepository;
 
 @Service
@@ -18,20 +18,20 @@ public class FindOseidRuleByIdService {
 	@Autowired
 	private OseidRuleRepository oseidRuleRepository;
 	
-	FindOseidRuleByIdService(OseidRuleRepository oseidRuleRepository){
+	public FindOseidRuleByIdService(OseidRuleRepository oseidRuleRepository){
 		this.oseidRuleRepository = oseidRuleRepository;
 	}
 
-	public OseidRule findOseidRuleById(Integer id) {
+	public OseidLeru findOseidRuleById(Integer id) {
 		LOGGER.always();
-		OseidRule r = new OseidRule();
+		OseidLeru r = new OseidLeru();
 		if(oseidRuleRepository.findAll().isEmpty()) {
 			LOGGER.info("No rule registered with id: "+id);	
 			
 		}else {
 
 			LOGGER.info("Found Rules");
-			for(OseidRule o : oseidRuleRepository.findAll()) {
+			for(OseidLeru o : oseidRuleRepository.findAll()) {
 				if(Objects.equals(o.getId(),id)) {
 					LOGGER.info("Returning rule with id: "+id);
 					return o;

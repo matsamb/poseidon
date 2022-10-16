@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.auth2.oseidclient.entity.OseidUserDetails;
-import com.auth2.oseidclient.user.service.FindUserByEmailService;
+import com.auth2.oseidclient.user.service.FindUserByUsernameService;
 import com.auth2.oseidclient.user.service.SaveOseidUserDetailsService;
 
 @SpringBootTest
@@ -30,7 +30,7 @@ public class PutUserRestControllerIT {
 	private MockMvc mockMvc;
 	
 	@MockBean
-	private FindUserByEmailService mockFindUserByEmailService;
+	private FindUserByUsernameService mockFindUserByUsernameService;
 	
 	@MockBean
 	private SaveOseidUserDetailsService mockSaveOseidUserDetailsService;
@@ -59,7 +59,7 @@ public class PutUserRestControllerIT {
 		newUser.setEnabled(true);
 		newUser.setLocked(false);
 				
-		when(mockFindUserByEmailService.findUserByEmail("sir@sir.com")).thenReturn(newUser);
+		when(mockFindUserByUsernameService.findUserByUsername("sir@sir.com")).thenReturn(newUser);
 		when(passwordEncoder.encode("sir")).thenReturn("$2a$10$5p5eFzge8lX5kCRtwouZNu9zc/IShygTYvb6agG2CCkbBGoZIFYNK");
 		
 		
@@ -68,9 +68,9 @@ public class PutUserRestControllerIT {
 				.with(user("user")
 					.password("pass")
 					.roles("ADMIN"))
-				.param("email", "sir@sir.com")
+				.param("username", "sir@sir.com")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("{\"email\":\"sir@sir.com\",\"password\":\"sir\",\"role\":\"ROLE_USER\"}")
+				.content("{\"username\":\"sir@sir.com\",\"password\":\"sir\",\"role\":\"ROLE_USER\"}")
 				.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			;
@@ -87,7 +87,7 @@ public class PutUserRestControllerIT {
 		newUser.setEnabled(true);
 		newUser.setLocked(false);
 				
-		when(mockFindUserByEmailService.findUserByEmail("sir@sir.com")).thenReturn(newUser);
+		when(mockFindUserByUsernameService.findUserByUsername("sir@sir.com")).thenReturn(newUser);
 		when(passwordEncoder.encode("sir")).thenReturn("$2a$10$5p5eFzge8lX5kCRtwouZNu9zc/IShygTYvb6agG2CCkbBGoZIFYNK");
 		
 		
@@ -96,9 +96,9 @@ public class PutUserRestControllerIT {
 				.with(user("user")
 					.password("pass")
 					.roles("ADMIN"))
-				.param("email", "sir@sir.com")
+				.param("username", "sir@sir.com")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("{\"email\":\"sir@sir.com\",\"password\":\"sir\",\"role\":\"ROLE_ADMIN\"}")
+				.content("{\"username\":\"sir@sir.com\",\"password\":\"sir\",\"role\":\"ROLE_ADMIN\"}")
 				.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isOk())
 			;
@@ -117,7 +117,7 @@ public class PutUserRestControllerIT {
 		
 		OseidUserDetails defaultNotRegistered = new OseidUserDetails("Not_Registered");
 		
-		when(mockFindUserByEmailService.findUserByEmail("sir@sir.com")).thenReturn(defaultNotRegistered);
+		when(mockFindUserByUsernameService.findUserByUsername("sir@sir.com")).thenReturn(defaultNotRegistered);
 		when(passwordEncoder.encode("sir")).thenReturn("$2a$10$5p5eFzge8lX5kCRtwouZNu9zc/IShygTYvb6agG2CCkbBGoZIFYNK");
 		
 		
@@ -126,9 +126,9 @@ public class PutUserRestControllerIT {
 				.with(user("user")
 					.password("pass")
 					.roles("ADMIN"))
-				.param("email", "sir@sir.com")
+				.param("username", "sir@sir.com")
 				.contentType(MediaType.APPLICATION_JSON)
-				.content("{\"email\":\"sir@sir.com\",\"password\":\"sir\",\"role\":\"ROLE_ADMIN\"}")
+				.content("{\"username\":\"sir@sir.com\",\"password\":\"sir\",\"role\":\"ROLE_ADMIN\"}")
 				.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isNotFound())
 			;
@@ -145,7 +145,7 @@ public class PutUserRestControllerIT {
 		newUser.setEnabled(true);
 		newUser.setLocked(false);
 				
-		when(mockFindUserByEmailService.findUserByEmail("sir@sir.com")).thenReturn(newUser);
+		when(mockFindUserByUsernameService.findUserByUsername("sir@sir.com")).thenReturn(newUser);
 		when(passwordEncoder.encode("sir")).thenReturn("$2a$10$5p5eFzge8lX5kCRtwouZNu9zc/IShygTYvb6agG2CCkbBGoZIFYNK");
 		
 		
@@ -154,7 +154,7 @@ public class PutUserRestControllerIT {
 				.with(user("user")
 					.password("pass")
 					.roles("ADMIN"))
-				.param("email", "sir@sir.com")
+				.param("username", "sir@sir.com")
 				.contentType(MediaType.APPLICATION_JSON)
 				.accept(MediaType.APPLICATION_JSON))
 			.andExpect(status().isBadRequest())

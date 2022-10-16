@@ -22,6 +22,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -45,9 +46,12 @@ public class OseidUserDetails implements UserDetails, OAuth2User, Cloneable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	private String email;
-	private String password;
 	private String username;
+	@OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@JoinColumn(name = "user_id")
+	private UserId userId;
+	private String password;
+	private String email;
 	private String fullname;
 	private String name;
 	private Boolean enabled;
@@ -57,8 +61,8 @@ public class OseidUserDetails implements UserDetails, OAuth2User, Cloneable {
 	@Setter(value = AccessLevel.NONE)
 	private HashMap<String, Object> attributes;
 
-	public OseidUserDetails(String email) {
-		this.email = email;
+	public OseidUserDetails(String username) {
+		this.username = username;
 	}
 
 	@Override
@@ -71,6 +75,18 @@ public class OseidUserDetails implements UserDetails, OAuth2User, Cloneable {
 		return authorities;
 	}
 
+	public UserId getUserId() {
+		if(userId != null) {
+		return (UserId)this.userId.clone();
+		}
+		return new UserId();
+	}
+	
+	public void setUserId(UserId userId) {
+		this.userId = (UserId)userId.clone();
+	}
+	
+	
 	@Override
 	public String getPassword() {
 		return this.password;
