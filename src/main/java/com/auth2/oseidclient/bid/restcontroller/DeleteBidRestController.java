@@ -33,6 +33,8 @@ public class DeleteBidRestController {
 		this.findBidByIdService = findBidByIdService;
 	}
 	
+	
+	
 	@DeleteMapping("/bid")//?bidlistid=<bidListId>
 	public ResponseEntity<BidDTO> deleteBid(@RequestParam Integer bidlistid){
 

@@ -1,8 +1,6 @@
-package com.auth2.oseidclient.bid.restcontroller;
+package com.auth2.oseidclient.restcontroller;
 
 import java.util.List;
-
-import javax.annotation.security.RolesAllowed;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,19 +13,20 @@ import com.auth2.oseidclient.bid.service.FindBidByAccountService;
 import com.auth2.oseidclient.entity.Bid;
 
 @RestController
-@RolesAllowed({"USER","ADMIN"})
-public class GetBidRestController {
+public class BidRestController {
 
 	private static final Logger LOGGER = LogManager.getLogger("GetBidRestController");
 
 	@Autowired
 	private FindBidByAccountService findBidByAccountService;
 
-	GetBidRestController(FindBidByAccountService findBidByAccountService) {
+	BidRestController(FindBidByAccountService findBidByAccountService
+			
+			){
 		this.findBidByAccountService = findBidByAccountService;
 	}
-
-//	@GetMapping("/bid") // ?account=<account>
+	
+	@GetMapping("/bid") // ?account=<account>
 	public Iterable<Bid> findBidByAccount(@RequestParam String account) {
 		
 		List<Bid> result = findBidByAccountService.findBidByAccount(account);
@@ -38,14 +37,8 @@ public class GetBidRestController {
 		} else {
 			LOGGER.info("No registered bid for " + account);
 		}
-		
-/*		Bid bid = new Bid("max");
-		bid.setDealName("bId");
-		Bid bod = new Bid("max");
-		bod.setDealName("bOd");
-		result.add(bod);
-		result.add(bid);*/
+
 		return result;
 	}
-
+	
 }
