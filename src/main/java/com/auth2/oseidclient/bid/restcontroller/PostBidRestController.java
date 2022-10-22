@@ -43,7 +43,7 @@ public class PostBidRestController {
 		this.findBidByAccountService = findBidByAccountService;
 	}
 	
-	@PostMapping("/bid")
+//	@PostMapping("/bid")
 	public ResponseEntity<Bid> addBid(@RequestBody Optional<@Valid BidDTO> bidDtoOptional){
 		
 		if(bidDtoOptional.isEmpty()) {

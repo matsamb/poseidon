@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import javax.annotation.security.RolesAllowed;
 import javax.validation.ConstraintViolation;
 import javax.validation.Valid;
 import javax.validation.Validation;
@@ -17,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,16 +30,16 @@ import com.auth2.oseidclient.entity.Bid;
 import com.auth2.oseidclient.service.BidService;
 
 @RestController
+@RolesAllowed({"ADMIN","USER"})
 public class BidRestController {
 
-	private static final Logger LOGGER = LogManager.getLogger("GetBidRestController");
+	private static final Logger LOGGER = LogManager.getLogger("BidRestController");
 
 	@Autowired
 	private BidService bidService;
 
 	BidRestController(BidService bidService
-
-	) {
+			){
 		this.bidService = bidService;
 	}
 
@@ -93,6 +95,38 @@ public class BidRestController {
 
 			}
 		}
+	}
+	
+	@PutMapping("/bid")//?bidListId=<bidListId>
+	public ResponseEntity<BidDTO> updateBid(@RequestBody Optional<BidDTO> bidDtoOptional){
+		
+		if(bidDtoOptional.isEmpty()) {
+			LOGGER.info("Bad request, empty request body");
+			return ResponseEntity.badRequest().build();
+		}else {
+			BidDTO bidDto =  bidDtoOptional.get();
+			Bid foundBid = bidService.findBidById(bidDto.getBidListId());
+			LOGGER.info(foundBid);
+			if(foundBid.getBidListId() == -1) {
+				LOGGER.info("Bid not found");
+				return ResponseEntity.notFound().build();
+			}else { 
+				LOGGER.info("Bid found");
+				foundBid.setBidListId(bidDto.getBidListId());
+				foundBid.setAccount(bidDto.getAccount());
+				foundBid.setType(bidDto.getType());
+				foundBid.setBidQuantity(bidDto.getBidQuantity());
+				LOGGER.info("Bid with account: "+foundBid.getAccount()+", updated");
+				
+				bidService.saveBid(foundBid);
+				LOGGER.info("Bid with account: "+foundBid.getAccount()+", loaded into database");
+				return ResponseEntity.ok(bidDto);
+				
+			}
+			
+			
+		}
+		
 	}
 
 	@DeleteMapping("/bid") // ?bidlistid=<bidListId>

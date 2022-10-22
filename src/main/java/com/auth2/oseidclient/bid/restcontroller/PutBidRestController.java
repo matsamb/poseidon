@@ -40,7 +40,7 @@ public class PutBidRestController {
 		this.findBidByIdService = findBidByIdService;
 	}
 	
-	@PutMapping("/bid")//?bidListId=<bidListId>
+//	@PutMapping("/bid")//?bidListId=<bidListId>
 	public ResponseEntity<BidDTO> updateBid(@RequestBody Optional<BidDTO> bidDtoOptional){
 		
 		if(bidDtoOptional.isEmpty()) {

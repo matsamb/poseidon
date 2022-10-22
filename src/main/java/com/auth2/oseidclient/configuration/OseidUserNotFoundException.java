@@ -1,4 +1,4 @@
-package com.auth2.oseidclient.service;
+package com.auth2.oseidclient.configuration;
 
 import org.springframework.stereotype.Component;
 
