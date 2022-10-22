@@ -35,7 +35,7 @@ public class DeleteBidRestController {
 	
 	
 	
-	@DeleteMapping("/bid")//?bidlistid=<bidListId>
+//	@DeleteMapping("/bid")//?bidlistid=<bidListId>
 	public ResponseEntity<BidDTO> deleteBid(@RequestParam Integer bidlistid){
 
 		if(findBidByIdService.findBidById(bidlistid).getBidListId() == -1) {
@@ -47,8 +47,6 @@ public class DeleteBidRestController {
 			LOGGER.info("Bid deleted");
 			return ResponseEntity.ok(new BidDTO());
 		}
-		
-		
 		
 	}
 	
