@@ -16,7 +16,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.auth2.oseidclient.bid.service.FindBidByAccountService;
 import com.auth2.oseidclient.entity.Bid;
 import com.auth2.oseidclient.repository.BidRepository;
 

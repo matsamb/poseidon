@@ -40,7 +40,7 @@ public class PutCurvePointRestController {
 		this.saveCurvePointService = saveCurvePointService;
 	}
 
-	@PutMapping("/curvepoint") // ?id=<id>
+//	@PutMapping("/curvepoint") // ?id=<id>
 	public ResponseEntity<CurvePoint> updateCurvePoint(@RequestBody Optional<CurvePoint> curvePointOptional,
 			@RequestParam Integer id) {
 

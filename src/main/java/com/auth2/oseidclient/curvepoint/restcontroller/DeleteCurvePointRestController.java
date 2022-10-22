@@ -36,7 +36,7 @@ public class DeleteCurvePointRestController {
 		this.findCurvePointByIdService = findCurvePointByIdService;
 	}
 	
-	@DeleteMapping("/curvepoint")//?id=<id>
+//	@DeleteMapping("/curvepoint")//?id=<id>
 	public ResponseEntity<CurvePoint> deleteCurvePoint(@RequestParam Integer id){
 		
 		if(findCurvePointByIdService.findCurvePointById(id).getId() == -1) {

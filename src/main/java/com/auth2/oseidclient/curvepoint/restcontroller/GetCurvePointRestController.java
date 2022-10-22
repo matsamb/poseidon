@@ -29,7 +29,7 @@ public class GetCurvePointRestController {
 		this.findCurvePointByIdService = findCurvePointByIdService;
 	}
 	
-	@GetMapping("/curvepoint")//?id=<id>
+//	@GetMapping("/curvepoint")//?id=<id>
 	public CurvePoint getCurvePoint(@RequestParam Integer id) {
 		
 		CurvePoint curve = findCurvePointByIdService.findCurvePointById(id);

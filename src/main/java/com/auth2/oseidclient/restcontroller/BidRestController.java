@@ -25,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.auth2.oseidclient.DTO.BidDTO;
-import com.auth2.oseidclient.bid.service.FindBidByAccountService;
 import com.auth2.oseidclient.entity.Bid;
 import com.auth2.oseidclient.service.BidService;
 
