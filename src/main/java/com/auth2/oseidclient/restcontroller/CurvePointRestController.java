@@ -57,7 +57,7 @@ public class CurvePointRestController {
 		return new CurvePoint();
 	}
 	
-//	@PostMapping("curvepoint")
+	@PostMapping("curvepoint")
 	public ResponseEntity<CurvePoint> addCurvePoint(@RequestBody Optional<CurvePoint> curvePointDtoOptional){
 		
 		if(curvePointDtoOptional.isEmpty()) {
