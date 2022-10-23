@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.auth2.oseidclient.entity.OseidLeru;
-import com.auth2.oseidclient.repository.OseidRuleRepository;
+import com.auth2.oseidclient.repository.OseidLeruRepository;
 
 @Service
 public class DeleteOseidRueService {
@@ -14,16 +14,16 @@ public class DeleteOseidRueService {
 	private static final Logger LOGGER = LogManager.getLogger("DeleteOseidRueService");
 
 	@Autowired
-	private OseidRuleRepository oseidRuleRepository;
+	private OseidLeruRepository oseidLeruRepository;
 	
-	DeleteOseidRueService(OseidRuleRepository oseidRuleRepository
+	DeleteOseidRueService(OseidLeruRepository oseidLeruRepository
 			){
-		this.oseidRuleRepository = oseidRuleRepository;
+		this.oseidLeruRepository = oseidLeruRepository;
 	}
 	
 	public void deleteOseidRue(OseidLeru rule) {
 		LOGGER.info("Deleting rule "+rule.getId());
-		oseidRuleRepository.delete(rule);
+		oseidLeruRepository.delete(rule);
 		
 	}
 	

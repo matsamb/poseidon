@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.auth2.oseidclient.entity.OseidLeru;
-import com.auth2.oseidclient.repository.OseidRuleRepository;
+import com.auth2.oseidclient.repository.OseidLeruRepository;
 
 @Service
 @Transactional
@@ -16,16 +16,15 @@ public class SaveOseidRuleService {
 	private static final Logger LOGGER = LogManager.getLogger("SaveOseidRuleService");
 
 	@Autowired
-	private OseidRuleRepository oseidRuleRepository;
+	private OseidLeruRepository oseidLeruRepository;
 	
-	SaveOseidRuleService(OseidRuleRepository oseidRuleRepository
-			){
-		this.oseidRuleRepository = oseidRuleRepository;
+	SaveOseidRuleService(OseidLeruRepository oseidLeruRepository){
+		this.oseidLeruRepository = oseidLeruRepository;
 	}
 
 	public Integer saveOseidRule(OseidLeru ruleToAdd) {
-		LOGGER.info("Saved rule id: "+oseidRuleRepository.saveAndFlush(ruleToAdd).getId());
-		Integer Id = oseidRuleRepository.saveAndFlush(ruleToAdd).getId();
+		LOGGER.info("Saved rule id: "+oseidLeruRepository.saveAndFlush(ruleToAdd).getId());
+		Integer Id = oseidLeruRepository.saveAndFlush(ruleToAdd).getId();
 		return Id;
 	}
 	

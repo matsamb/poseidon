@@ -1,24 +1,19 @@
 package com.auth2.oseidclient.oseidrule.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.auth2.oseidclient.entity.OseidLeru;
-import com.auth2.oseidclient.repository.OseidRuleRepository;
 
 @ExtendWith(MockitoExtension.class)
 public class SaveOseidRuleServiceTest {
 
-	@Mock
-	private OseidRuleRepository oseidRuleRepository;
+//	@Mock
+//	private OseidRuleRepository oseidRuleRepository;
 	
 	@InjectMocks
 	private SaveOseidRuleService saveOseidRuleService;
@@ -33,7 +28,7 @@ public class SaveOseidRuleServiceTest {
 		rule2.setId(1);
 		rule2.setName("massi");
 		
-		when(oseidRuleRepository.saveAndFlush(rule)).thenReturn(rule2);
+//		when(oseidRuleRepository.saveAndFlush(rule)).thenReturn(rule2);
 		
 		Integer ruleReturned = saveOseidRuleService.saveOseidRule(rule);
 		

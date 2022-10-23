@@ -38,7 +38,7 @@ public class PostOseidRuleRestController {
 		this.saveOseidRuleService = saveOseidRuleService;
 	}
 	
-	@PostMapping("/rule")
+//	@PostMapping("/rule")
 	public ResponseEntity<OseidLeru> addRule(@RequestBody Optional<@Valid OseidLeru> ruleDtoOptional){
 		
 		if(ruleDtoOptional.isEmpty()) {

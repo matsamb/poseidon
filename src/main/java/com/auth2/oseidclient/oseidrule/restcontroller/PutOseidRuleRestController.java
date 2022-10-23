@@ -38,7 +38,7 @@ public class PutOseidRuleRestController {
 		this.saveOseidRuleService = saveOseidRuleService;
 	}
 	
-	@PutMapping("/rule")//?id=<id>
+//	@PutMapping("/rule")//?id=<id>
 	public ResponseEntity<OseidLeru> updateRule(@RequestBody Optional<OseidLeru> ruleDtoOptional, @RequestParam Integer id){
 
 		LOGGER.always();

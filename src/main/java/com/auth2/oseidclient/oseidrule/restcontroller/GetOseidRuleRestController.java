@@ -26,7 +26,7 @@ public class GetOseidRuleRestController {
 		this.findOseidRuleByIdService = findOseidRuleByIdService;
 	}
 	
-	@GetMapping("/rule")//?id=<id>
+//	@GetMapping("/rule")//?id=<id>
 	public ResponseEntity<OseidLeru> getOseidRule(@RequestParam Integer id){
 		LOGGER.always();
 		

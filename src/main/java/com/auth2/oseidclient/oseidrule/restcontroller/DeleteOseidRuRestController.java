@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.auth2.oseidclient.entity.OseidLeru;
 import com.auth2.oseidclient.oseidrule.service.DeleteOseidRueService;
 import com.auth2.oseidclient.oseidrule.service.FindOseidRuleByIdService;
-import com.auth2.oseidclient.repository.OseidRuleRepository;
 
 @RestController
 public class DeleteOseidRuRestController {
@@ -24,8 +23,8 @@ public class DeleteOseidRuRestController {
 	@Autowired
 	private DeleteOseidRueService deleteOseidRueService;
 	
-	@Autowired
-	private OseidRuleRepository oseidRuleRepository;
+//	@Autowired
+//	private OseidLeruRepository oseidRuleRepository;
 
 	DeleteOseidRuRestController(FindOseidRuleByIdService findOseidRuleByIdService
 			, DeleteOseidRueService deleteOseidRueService
@@ -34,10 +33,10 @@ public class DeleteOseidRuRestController {
 		this.deleteOseidRueService = deleteOseidRueService;
 	}
 	
-	@DeleteMapping("/rue")
+//	@DeleteMapping("/rue")
 	private ResponseEntity<OseidLeru> deleteRule(@RequestParam Integer id){
 		LOGGER.always();
-		FindOseidRuleByIdService findOseidRuleByIdService = new FindOseidRuleByIdService(oseidRuleRepository);
+//		FindOseidRuleByIdService findOseidRuleByIdService = new FindOseidRuleByIdService(oseidRuleRepository);
 		LOGGER.info(findOseidRuleByIdService.findOseidRuleById(id));
 		
 /*		if(findOseidRuleByIdService.findOseidRuleById(id).getId() == -1) {
