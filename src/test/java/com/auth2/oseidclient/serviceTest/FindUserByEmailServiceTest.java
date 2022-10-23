@@ -13,7 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.auth2.oseidclient.entity.OseidUserDetails;
 import com.auth2.oseidclient.repository.OseidUserDetailsRepository;
-import com.auth2.oseidclient.user.service.FindUserByUsernameService;
+import com.auth2.oseidclient.service.FindUserByUsernameService;
 
 @ExtendWith(MockitoExtension.class)
 public class FindUserByEmailServiceTest {

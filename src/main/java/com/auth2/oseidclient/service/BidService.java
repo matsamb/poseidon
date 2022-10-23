@@ -2,6 +2,7 @@ package com.auth2.oseidclient.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -23,6 +24,13 @@ public class BidService {
 		this.bidRepository = bidRepository;
 	}
 	
+	public Integer saveBid(Bid newBid) {
+		LOGGER.info("loading bid: "+bidRepository.saveAndFlush(newBid).getBidListId()+", into database");
+		Integer returnedBidId = bidRepository.saveAndFlush(newBid).getBidListId();
+		return returnedBidId;
+		
+	}
+	
 	public List<Bid> findBidByAccount(String account) {
 		List<Bid> found = bidRepository.findAll();
 		LOGGER.info("found: "+found);
@@ -40,8 +48,6 @@ public class BidService {
 				}
 			}
 		}
-		
-		
 		if(result.size() == 0) {
 			LOGGER.info("NotRegistered default bid for "+account);
 			Bid notRegistredAccount = new Bid("Not_Registered");
@@ -49,6 +55,31 @@ public class BidService {
 		}
 		
 		return result;
+	}
+	
+	public Bid findBidById(Integer bidListId) {
+		Bid resultBid = new Bid();
+		LOGGER.info("search result: " + bidRepository.findAll());
+		int count = 0;
+		for (Bid i : bidRepository.findAll()) {
+			if (Objects.equals(bidListId, i.getBidListId())) {
+				LOGGER.info("Bid with Id: " + bidListId + ", found ");
+				resultBid = i;
+				count++;
+			}
+		}
+		
+		if(count == 0 ) {
+			LOGGER.info("No Bid found with Id: " + bidListId);
+			resultBid.setBidListId(-1);;
+		}
+		return resultBid;
+	}
+	
+	public void deleteBid(Bid bid) {
+		LOGGER.info("Bid deleted: "+bid.getBidListId());
+		bidRepository.delete(bid);
+		
 	}
 	
 }
