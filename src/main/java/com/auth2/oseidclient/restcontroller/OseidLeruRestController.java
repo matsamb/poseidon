@@ -120,7 +120,7 @@ public class OseidLeruRestController {
 		
 	}	
 	
-	//TODO
+/*	//TODO
 	
 //	@DeleteMapping("/leru")
 	private ResponseEntity<OseidLeru> deleteLeru(@RequestParam Integer id){
@@ -130,6 +130,6 @@ public class OseidLeruRestController {
 			}
 			return ResponseEntity.notFound().build();
 		
-	}
+	}*/
 	
 }

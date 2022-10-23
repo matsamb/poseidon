@@ -33,20 +33,19 @@ public class DeleteOseidRuRestController {
 		this.deleteOseidRueService = deleteOseidRueService;
 	}
 	
-//	@DeleteMapping("/rue")
+	@DeleteMapping("/leru")
 	private ResponseEntity<OseidLeru> deleteRule(@RequestParam Integer id){
 		LOGGER.always();
-//		FindOseidRuleByIdService findOseidRuleByIdService = new FindOseidRuleByIdService(oseidRuleRepository);
 		LOGGER.info(findOseidRuleByIdService.findOseidRuleById(id));
 		
-/*		if(findOseidRuleByIdService.findOseidRuleById(id).getId() == -1) {
+	if(findOseidRuleByIdService.findOseidRuleById(id).getId() == -1) {
 			LOGGER.info("No rule match for id: "+id);
 			return ResponseEntity.notFound().build();
-		}else {*/
+		}else {
 			LOGGER.info("rule: "+id+", found");
 			deleteOseidRueService.deleteOseidRue(findOseidRuleByIdService.findOseidRuleById(id));
 			return ResponseEntity.ok(new OseidLeru());
-		//}
+		}
 
 		
 	}

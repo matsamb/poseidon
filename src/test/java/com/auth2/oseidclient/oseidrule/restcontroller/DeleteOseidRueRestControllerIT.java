@@ -39,7 +39,7 @@ public class DeleteOseidRueRestControllerIT {
 		 
 		mockMvc = MockMvcBuilders
 					.webAppContextSetup(webApplicationContext)
-					.defaultRequest(delete("/rue"))
+					.defaultRequest(delete("/leru"))
 					.apply(springSecurity())
 					.build()
 					;
@@ -54,17 +54,17 @@ public class DeleteOseidRueRestControllerIT {
 		
 		when(findOseidRuleByIdService.findOseidRuleById(1)).thenReturn(notRegistered);
 		
-		mockMvc.perform(delete("/rue")
+		mockMvc.perform(delete("/leru")
 					.param("id", "1")
 					.with(user("nwl")
 						.password("nyjfk")
 						.roles("Admin")))
-					.andExpect(status().isOk())
+					.andExpect(status().isNotFound())
 		;
 		
 	}
 	
-/*	@Test
+	@Test
 	public void registered() throws Exception {
 		
 		OseidLeru registered = new OseidLeru();
@@ -73,13 +73,13 @@ public class DeleteOseidRueRestControllerIT {
 		
 		when(findOseidRuleByIdService.findOseidRuleById(1)).thenReturn(registered);
 		
-		mockMvc.perform(delete("/rue")
+		mockMvc.perform(delete("/leru")
 					.param("id", "1")
 					.with(user("nwl")
 						.password("nyjfk")
 						.roles("Admin")))
-					.andExpect(status().isNotFound())
+					.andExpect(status().isOk())
 		;
 		
-	}*/
+	}
 }

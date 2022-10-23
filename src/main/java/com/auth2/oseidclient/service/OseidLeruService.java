@@ -49,13 +49,13 @@ public class OseidLeruService {
 		return r;
 	}
 
-	public boolean deleteOseidLeru(Integer id) {
+/*	public boolean deleteOseidLeru(Integer id) {
 		LOGGER.info("Deleting leru "+id);
 		if(oseidLeruRepository.findById(id).isPresent()) {
 			oseidLeruRepository.deleteById(id);
 			return true;
 		};	
 		return false;
-	}
+	}*/
 	
 }

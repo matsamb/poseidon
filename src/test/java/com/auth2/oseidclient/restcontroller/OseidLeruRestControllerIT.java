@@ -90,7 +90,7 @@ public class OseidLeruRestControllerIT {
 
 	}
 
-	@Nested
+/*	@Nested
 	@DisplayName("deleteLeru")
 	class deleteLeru {
 
@@ -132,7 +132,7 @@ public class OseidLeruRestControllerIT {
 			
 		}
 
-	}
+	}*/
 
 	@Nested
 	@DisplayName("getLeru")
