@@ -1,22 +1,20 @@
-package com.auth2.oseidclient.user.restcontroller;
+package com.auth2.oseidclient.restcontroller;
 
 import java.util.Map;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.jackson.JsonObjectDeserializer;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
-import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.auth2.oseidclient.entity.OseidUserDetails;
-import com.auth2.oseidclient.repository.OseidUserDetailsRepository;
-import com.auth2.oseidclient.user.service.FindUserByUsernameService;
-import com.auth2.oseidclient.user.service.SaveOseidUserDetailsService;
+import com.auth2.oseidclient.service.FindUserByUsernameService;
+import com.auth2.oseidclient.service.SaveOseidUserDetailsService;
+import com.auth2.oseidclient.user.service.UserIdHelper;
 
 @RestController
 public class Oauth2RestController {
@@ -28,20 +26,23 @@ public class Oauth2RestController {
 	
 	@Autowired
 	private SaveOseidUserDetailsService saveOseidUserDetailsService;
-	
-	@Autowired
-	private OseidUserDetailsRepository oseidUserDetailsRepository;
-	
+		
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private UserIdHelper userIdHelper;
+
 	
 	Oauth2RestController(FindUserByUsernameService findUserByUsernameService
 			,SaveOseidUserDetailsService saveOseidUserDetailsService
 			,PasswordEncoder passwordEncoder
+			,UserIdHelper userIdHelper
 			){
 		this.findUserByUsernameService = findUserByUsernameService;
 		this.saveOseidUserDetailsService = saveOseidUserDetailsService;
 		this.passwordEncoder = passwordEncoder;
+		this.userIdHelper = userIdHelper;
 	}
 	
 	@GetMapping("/")
@@ -57,6 +58,8 @@ public class Oauth2RestController {
 			LOGGER.info("New Oauth2 User: "+findUserByUsernameService.findUserByUsername(email).getEmail());
 			OseidUserDetails newOseidUser = new OseidUserDetails();
 			
+			newOseidUser.setUserId(userIdHelper.createUserId());
+			LOGGER.info("New user helper id" + newOseidUser.getUserId().getId());
 			newOseidUser.setEmail(email);
 			newOseidUser.setUsername(email);
 			String OauthUserPass = passwordEncoder.encode(username);

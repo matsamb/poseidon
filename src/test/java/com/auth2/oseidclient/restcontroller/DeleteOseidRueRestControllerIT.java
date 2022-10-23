@@ -1,4 +1,4 @@
-package com.auth2.oseidclient.oseidrule.restcontroller;
+package com.auth2.oseidclient.restcontroller;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
@@ -18,8 +18,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.auth2.oseidclient.entity.OseidLeru;
-import com.auth2.oseidclient.oseidrule.service.DeleteOseidRueService;
-import com.auth2.oseidclient.oseidrule.service.FindOseidRuleByIdService;
+import com.auth2.oseidclient.service.DeleteOseidRueService;
+import com.auth2.oseidclient.service.FindOseidRuleByIdService;
 
 @SpringBootTest
 @AutoConfigureMockMvc

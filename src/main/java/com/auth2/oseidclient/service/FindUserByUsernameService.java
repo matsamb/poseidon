@@ -1,4 +1,4 @@
-package com.auth2.oseidclient.user.service;
+package com.auth2.oseidclient.service;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

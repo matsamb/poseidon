@@ -1,4 +1,4 @@
-package com.auth2.oseidclient.user.service;
+package com.auth2.oseidclient.service;
 
 import java.util.List;
 import java.util.Objects;
@@ -13,16 +13,37 @@ import com.auth2.oseidclient.entity.UserId;
 import com.auth2.oseidclient.repository.OseidUserDetailsRepository;
 
 @Service
-public class FindUserByUserIdService {
+public class UserService {
 
-	private static final Logger LOGGER = LogManager.getLogger("FindUserByUserIdService");
-	
+	public static final Logger LOGGER = LogManager.getLogger("UserService");
+
 	@Autowired
 	private OseidUserDetailsRepository oseidUserDetailsRepository;
-	
-	FindUserByUserIdService(OseidUserDetailsRepository oseidUserDetailsRepository
-			){
+
+	UserService(OseidUserDetailsRepository oseidUserDetailsRepository){
 		this.oseidUserDetailsRepository = oseidUserDetailsRepository;
+	}
+	
+	public void saveUserDetails(OseidUserDetails newOseidUser) {
+		LOGGER.info("loading new Oauth User: "+newOseidUser.getEmail()+", into database");
+		oseidUserDetailsRepository.save(newOseidUser);	
+	}
+	
+	public OseidUserDetails findUserByUsername(String username) {
+
+		OseidUserDetails foundUser = new OseidUserDetails();
+		foundUser.setLocked(false);
+		LOGGER.info(oseidUserDetailsRepository.findByUsername(username).isPresent());
+		if (oseidUserDetailsRepository.findByUsername(username).isPresent()) {
+			foundUser = oseidUserDetailsRepository.findByUsername(username).get();
+			LOGGER.info("User registered: "+foundUser.getUsername());
+		}else {
+			LOGGER.info("User not regidtred");
+			foundUser.setEmail("Not_Registered");
+			foundUser.setUsername("Not_Registered");
+		}
+		LOGGER.info(foundUser);
+		return foundUser;
 	}
 	
 	public OseidUserDetails findUserByUserId(Integer id) {
@@ -46,6 +67,12 @@ public class FindUserByUserIdService {
 		}
 		LOGGER.info("User with id: "+id+", not registered");
 		return foundUser;
+	}
+	
+	public void deleteUserByUsername(String username) {
+		LOGGER.info("User: "+username+", deleted");
+		oseidUserDetailsRepository.deleteById(username);
+		
 	}
 	
 }

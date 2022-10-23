@@ -1,4 +1,4 @@
-package com.auth2.oseidclient.oseidrule.service;
+package com.auth2.oseidclient.service;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
@@ -14,6 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.auth2.oseidclient.entity.OseidLeru;
 import com.auth2.oseidclient.repository.OseidLeruRepository;
+import com.auth2.oseidclient.service.FindOseidRuleByIdService;
 
 @ExtendWith(MockitoExtension.class)
 public class FindOseidRuleByIdServiceTest {

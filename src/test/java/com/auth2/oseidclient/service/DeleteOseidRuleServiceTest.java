@@ -1,4 +1,4 @@
-package com.auth2.oseidclient.oseidrule.service;
+package com.auth2.oseidclient.service;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.auth2.oseidclient.entity.OseidLeru;
 import com.auth2.oseidclient.repository.OseidLeruRepository;
+import com.auth2.oseidclient.service.DeleteOseidRueService;
 
 @ExtendWith(MockitoExtension.class)
 public class DeleteOseidRuleServiceTest {

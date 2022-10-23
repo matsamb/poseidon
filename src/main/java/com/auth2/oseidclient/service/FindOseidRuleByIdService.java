@@ -1,4 +1,4 @@
-package com.auth2.oseidclient.oseidrule.service;
+package com.auth2.oseidclient.service;
 
 import java.util.Objects;
 

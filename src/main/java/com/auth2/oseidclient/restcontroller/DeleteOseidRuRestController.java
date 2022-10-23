@@ -1,4 +1,4 @@
-package com.auth2.oseidclient.oseidrule.restcontroller;
+package com.auth2.oseidclient.restcontroller;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.auth2.oseidclient.entity.OseidLeru;
-import com.auth2.oseidclient.oseidrule.service.DeleteOseidRueService;
-import com.auth2.oseidclient.oseidrule.service.FindOseidRuleByIdService;
+import com.auth2.oseidclient.service.DeleteOseidRueService;
+import com.auth2.oseidclient.service.FindOseidRuleByIdService;
 
 @RestController
 public class DeleteOseidRuRestController {
@@ -22,9 +22,6 @@ public class DeleteOseidRuRestController {
 	
 	@Autowired
 	private DeleteOseidRueService deleteOseidRueService;
-	
-//	@Autowired
-//	private OseidLeruRepository oseidRuleRepository;
 
 	DeleteOseidRuRestController(FindOseidRuleByIdService findOseidRuleByIdService
 			, DeleteOseidRueService deleteOseidRueService

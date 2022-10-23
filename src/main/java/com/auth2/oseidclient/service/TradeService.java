@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.auth2.oseidclient.entity.Trade;
 import com.auth2.oseidclient.repository.TradeRepository;
-import com.auth2.oseidclient.trade.service.SaveTradeService;
 
 @Service
 public class TradeService {

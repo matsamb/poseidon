@@ -1,4 +1,4 @@
-package com.auth2.oseidclient.user.restcontrollerIT;
+package com.auth2.oseidclient.restcontroller;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -29,8 +29,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import com.auth2.oseidclient.entity.OseidUserDetails;
-import com.auth2.oseidclient.user.service.FindUserByUsernameService;
-import com.auth2.oseidclient.user.service.SaveOseidUserDetailsService;
+import com.auth2.oseidclient.service.FindUserByUsernameService;
+import com.auth2.oseidclient.service.SaveOseidUserDetailsService;
 
 @SpringBootTest
 @AutoConfigureMockMvc

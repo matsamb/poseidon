@@ -9,23 +9,25 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.auth2.oseidclient.entity.OseidUserDetails;
 import com.auth2.oseidclient.repository.OseidUserDetailsRepository;
-import com.auth2.oseidclient.user.service.DeleteUserByUsernameService;
+import com.auth2.oseidclient.service.SaveOseidUserDetailsService;
 
 @ExtendWith(MockitoExtension.class)
-public class DeleteUserByEmailServiceTest {
+public class SaveOseidUserDetailServiceTest {
 
 	@Mock
 	private OseidUserDetailsRepository oseidUserDetailsRepository;
 
 	@InjectMocks
-	private DeleteUserByUsernameService deleteUserByUsernameService;
+	private SaveOseidUserDetailsService saveOseidUserDetailsService;
 	
-	@Test
-	public void givenAnEmail_whenDeleteByEmailCalled_thenRepositoryDeleteByIdShouldBeUseOnce() {
-		
-		deleteUserByUsernameService.deleteUserByUsername("email");
-		verify(oseidUserDetailsRepository, times(1)).deleteById("email");
-	}
+		@Test
+		public void givenAUser_whenSaveCalled_thenRepositorySaveShouldBeCalledOnce() {
+			OseidUserDetails userToSave = new OseidUserDetails();
+			saveOseidUserDetailsService.saveUserDetails(userToSave);
+			verify(oseidUserDetailsRepository, times(1)).save(userToSave);
+		}
+
 	
 }
